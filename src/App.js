@@ -4,7 +4,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import './App.scss';
 import { ReactComponent as Logo } from './site-logo.svg';
 
-import AuthService from "./services/auth.service";
+import AuthService from "./services/AuthService";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";

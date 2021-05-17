@@ -1,5 +1,5 @@
 import axios from "axios";
-import authHeader from "./auth-header";
+import authHeader from "./authHeader";
 
 const API = "http://localhost:8080/";
 const API_NODES = API + "nodes/"
@@ -25,22 +25,12 @@ const NodeService = {
         return await axios.delete(API_NODES + id, { headers: authHeader() });
     },
 
-    // TODO need "remove node" actions
-
-    //TODO this doesn't work at all
-    updateNode: (node) => {
-        return axios.patch(API_NODES, {
-            headers: authHeader(),
-            id: node.id,
-            node: {
+    updateNodePosition: async (node) => {
+        return await axios.patch(API_NODES + 'address/' + node.id, {            
                 posX: node.position.x,
                 posY: node.position.y
-            }
-        }).then((response) => {
-            // if(response.data) {
-                console.log(response)
-            // }
-            return response.data;
+        }, {
+            headers: authHeader(),
         });
     },
 }

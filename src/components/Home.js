@@ -1,4 +1,4 @@
-import AuthService from "../services/auth.service";
+import AuthService from "../services/AuthService";
 
 const Home = () => {
     const currentUser = AuthService.getCurrentUser();

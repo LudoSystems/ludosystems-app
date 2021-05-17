@@ -7,15 +7,8 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 import { Redirect } from "react-router-dom";
 
-import NodeService from "../services/node.service";
-import AuthService from "../services/auth.service";
-
-
-const onNodeDragStop = (event, node) => {
-    console.log('drag stop', node);
-
-    NodeService.updateNode(node);
-}
+import NodeService from "../services/NodeService";
+import AuthService from "../services/AuthService";
 
 const snapGrid = [10,10];
 
@@ -25,22 +18,35 @@ const Nodes = () => {
     const [elements, setElements] = useState([]);
     const [warning, setWarning] = useState("");
 
+    const setError = (error) => {
+        const _warning =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.toString();
+        
+        setWarning(_warning);
+    }
+
     const onElementsRemove = (elementsToRemove) => {
         NodeService.deleteNode(elementsToRemove[0].id).then(
             (response) => {
                 setElements((els) => removeElements(elementsToRemove, els));
             },
-            (error) => {
-                const _warning =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                        error.toString();
-                
-                setWarning(_warning);
-            }
+            (error) => setError(error)
         );
     };
+
+    const onNodeDragStop = (event, node) => {
+        console.log('drag stop', node);
+    
+        NodeService.updateNodePosition(node).then(
+            (response) => {
+                console.log(response);
+            },
+            (error) => setError(error)
+        )
+    }
 
     const onConnect = (params) => 
         setElements((els) => addEdge(params, els));
@@ -59,15 +65,7 @@ const Nodes = () => {
 
                 setElements((els) => els.concat(newElement));
             },
-            (error) => {
-                const _warning =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                        error.toString();
-                
-                setWarning(_warning);
-            }
+            (error) => setError(error)
         );
     }, [setElements]);
     
@@ -116,15 +114,7 @@ const Nodes = () => {
 
                 setElements(_elements);
             },
-            (error) => {
-                const _warning =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                        error.toString();
-                
-                setWarning(_warning);
-            }
+            (error) => setError(error)
         );
     }, []);
 

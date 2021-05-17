@@ -34,9 +34,22 @@ const NodeService = {
         });
     },
 
-    // addNodeConnection: async (parentNodeId, childNodeId) => {
+    connectNodes: async (id, childId) => {
+        // If only a Long is passed, axios sets the MIME type to application/x-www-form-urlencoded but the API expects application/json.
+        const headers = authHeader();
+    
+        headers['Content-Type'] = 'application/json';
+   
+        return await axios.patch(API_NODES + 'connect/' + id, childId, { headers: headers });
+    },
 
-    // }
+    disconnectNodes: async (id, childId) => {
+        const headers = authHeader();
+    
+        headers['Content-Type'] = 'application/json';
+   
+        return await axios.patch(API_NODES + 'disconnect/' + id, childId, { headers: headers });
+    }
 }
 
 export default NodeService;

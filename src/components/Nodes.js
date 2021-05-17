@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 
 import NodeService from "../services/NodeService";
 import AuthService from "../services/AuthService";
+import axios from "axios";
 
 const snapGrid = [10,10];
 
@@ -26,15 +27,28 @@ const Nodes = () => {
                 error.toString();
         
         setWarning(_warning);
-    }
+    };
 
     const onElementsRemove = (elementsToRemove) => {
-        NodeService.deleteNode(elementsToRemove[0].id).then(
+        const nodes = elementsToRemove.filter(element => !element.source);
+        const edges = elementsToRemove.filter(element => element.source);
+
+        const requests = [];
+
+        for(const edge of edges) {
+            requests.push(NodeService.disconnectNodes(edge.source, edge.target));
+        }
+
+        for(const node of nodes) {
+            requests.push(NodeService.deleteNode(node.id));
+        }
+
+        axios.all(requests).then(
             (response) => {
                 setElements((els) => removeElements(elementsToRemove, els));
             },
             (error) => setError(error)
-        );
+        )
     };
 
     const onNodeDragStop = (event, node) => {
@@ -44,10 +58,16 @@ const Nodes = () => {
             },
             (error) => setError(error)
         )
-    }
+    };
 
-    const onConnect = (params) => 
-        setElements((els) => addEdge(params, els));
+    const onConnect = (params) => {
+        NodeService.connectNodes(params.source, params.target).then(
+            (response) => {
+                setElements((els) => addEdge(params, els));
+            },
+            (error) => setError(error)
+        )
+    };
 
     const onAdd = useCallback(() => {
         NodeService.addNode({
@@ -138,7 +158,6 @@ const Nodes = () => {
                             snapGrid={snapGrid}
 
                             deleteKeyCode={46}
-                           
                         >
                              <MiniMap
                                 nodeColor={(node) => {

@@ -25,14 +25,18 @@ const NodeService = {
         return await axios.delete(API_NODES + id, { headers: authHeader() });
     },
 
-    updateNodePosition: async (node) => {
-        return await axios.patch(API_NODES + 'address/' + node.id, {            
-                posX: node.position.x,
-                posY: node.position.y
+    updateNodePosition: async (id, posX, posY) => {
+        return await axios.patch(API_NODES + 'address/' + id, {            
+                posX: posX,
+                posY: posY
         }, {
             headers: authHeader(),
         });
     },
+
+    // addNodeConnection: async (parentNodeId, childNodeId) => {
+
+    // }
 }
 
 export default NodeService;

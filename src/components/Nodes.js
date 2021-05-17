@@ -38,11 +38,9 @@ const Nodes = () => {
     };
 
     const onNodeDragStop = (event, node) => {
-        console.log('drag stop', node);
-    
-        NodeService.updateNodePosition(node).then(
+        NodeService.updateNodePosition(node.id, node.position.x, node.position.y).then(
             (response) => {
-                console.log(response);
+                // Nothing needs to happen
             },
             (error) => setError(error)
         )

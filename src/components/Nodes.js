@@ -44,10 +44,11 @@ const Nodes = () => {
         }
 
         axios.all(requests).then(
-            (response) => {
+            axios.spread((...responses) => {
                 setElements((els) => removeElements(elementsToRemove, els));
-            },
-            (error) => setError(error)
+              })).catch(errors => {
+                setError(errors)
+            }
         )
     };
 

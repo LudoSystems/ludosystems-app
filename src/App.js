@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
-import './App.scss';
+import './styles/App.scss';
 import { ReactComponent as Logo } from './site-logo.svg';
 
 import AuthService from "./services/AuthService";

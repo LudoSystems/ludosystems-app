@@ -5,13 +5,21 @@ import ReactFlow, {
     MiniMap, 
     Controls 
 } from 'react-flow-renderer';
+
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 import NodeService from "../services/NodeService";
 import AuthService from "../services/AuthService";
-import axios from "axios";
+
+import LudobaumNode from './LudobaumNode';
+import '../styles/LudobaumNode.scss';
 
 const snapGrid = [10,10];
+
+const nodeTypes = {
+    ludobaumNode: LudobaumNode,
+};
 
 const Nodes = () => {
     const currentUser = AuthService.getCurrentUser();
@@ -76,6 +84,8 @@ const Nodes = () => {
             posY: window.innerHeight / 2 - Math.floor(Math.random() * 10) * 10
         }).then(
             (response) => {
+                // TODO: make this a function
+
                 const newElement = {
                     id: '' + response.data.id,
                     data: { label: 'Node ' + response.data.id },
@@ -94,9 +104,11 @@ const Nodes = () => {
                 const _elements = [];
 
                 const createFlowElements = (node, elements, edges) => {
+
                     const element = {
                         id: '' + node.id,
                         data: { label: 'Node ' + node.id },
+                        type: 'ludobaumNode',
                         position: { x: node.posX, y: node.posY }
                     };
 
@@ -157,7 +169,7 @@ const Nodes = () => {
                             onNodeDragStop={onNodeDragStop}
                             snapToGrid={true}
                             snapGrid={snapGrid}
-
+                            nodeTypes={nodeTypes}
                             deleteKeyCode={46}
                         >
                              <MiniMap

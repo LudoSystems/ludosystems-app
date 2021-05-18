@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/auth/";
+const API_URL = process.env.REACT_APP_API_URI + "auth/";
 
 const AuthService = {
     register: (username, email, password) => {

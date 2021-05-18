@@ -1,3 +1,18 @@
+# Ludobaum
+
+A node editor for video games.
+
+
+# Setup
+## .env
+Check the .env.sample included in the repo to set up your own .env.development and .env.production files.
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

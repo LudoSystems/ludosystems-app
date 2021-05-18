@@ -1,0 +1,232 @@
+@use './_fonts';
+@use './_components';
+@use './_borders';
+@use './_colors';
+@use './_widths';
+
+/** Default Tags **/
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @include fonts.body-regular();
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    max-height: 100vh;
+
+    background-color: colors.$primary;
+
+    color: white;
+}
+
+a {
+    color: white;
+
+    &:visited {
+        color: white;
+    }
+
+    &:active {
+        color: colors.$accent;
+    }
+}
+
+h1, h2, h3, h4 {
+    @include fonts.header-medium();
+    margin-block-end: 0;
+}
+
+header {
+    height: 12vh;
+}
+
+main {
+    @include widths.default();
+
+    height: 80vh;
+}
+
+footer {
+    @include widths.default();
+
+    position: absolute;
+    
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    height: 5vh;
+    
+    display: flex;
+    
+    #footer-text {
+        @include fonts.header-medium();
+        flex-grow: 1;
+    }
+
+    #footer-links {
+        @include fonts.header-bold();
+    }
+
+
+    @media (max-width: 500px) {
+        height: 5vh;
+        font-size: 0.8rem;
+    }
+}
+
+/** Nav **/
+
+nav {
+    @include widths.default();
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    height: 90px;
+
+    .nav-menu {
+        flex-grow: 1;
+    }
+
+    @media (max-width: widths.$break-point-max) {
+        padding-top: 15px;
+    }
+
+    @media (max-width: 500px) {
+        padding-top: 10px;
+
+        .nav-link {
+        
+            font-size: 1.0rem;
+        }
+    }
+
+    .social-icon {
+        color: white;
+
+        &:hover {
+            color: white;
+            border-bottom: borders.$white;
+        }
+    }
+}
+
+.nav-link {
+    @include fonts.header-bold();   
+
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+
+    margin-right: 10px;
+    
+    padding: 5px;
+    border: borders.$blank;
+    
+    &:hover {
+        color: colors.$primary;
+        background-color: white;
+        border: borders.$white;
+    }
+
+    &:active {
+        color: colors.$accent;
+        border-color: colors.$accent;
+    }
+}
+
+#site-logo {
+    margin-right: 20px;
+
+    padding: 5px;
+    border: borders.$blank;
+
+    @media (max-width: widths.$break-point-max) {
+        position: fixed;
+        top: 5px;
+        width: 30%;
+    }
+
+    svg {
+        display: block;
+        fill: white;
+    }
+    
+    &:hover {
+        background-color: white;
+        border-color: white;
+
+        svg {
+            fill: colors.$primary;
+        }
+    }
+
+    &:active {
+        border-color: colors.$accent;
+
+        svg {
+            fill: colors.$accent;
+        }
+    }
+}
+
+/** Nodes **/
+
+#node-editor {
+    height: 100%;
+    border: borders.$black;
+
+    position: relative;
+    background-color: white;
+}
+
+#node-editor-controls {
+    z-index: 20;
+    height: 25%;
+
+    position: absolute;
+
+    background-color: white;
+
+    width: 50px;
+
+    border-right: borders.$black;
+    border-bottom: borders.$black;
+}
+
+.node-editor-control {
+    @include components.button();
+
+    width: 40px;
+    margin-left: 5px;
+
+    font-size: 1.0rem;
+}
+
+.warning {
+    @include fonts.body-regular();
+    position: absolute;
+
+    z-index: 10;
+
+    left: 5%;
+    right: 5%;
+
+    padding: 10px;
+
+    border-left: borders.$black;
+    border-right: borders.$black;
+    border-bottom: borders.$black;
+    
+    background-color: red;
+    color: white;
+
+    &:before {
+        @include fonts.body-bold();
+        content: "Warning: ";
+    }
+}

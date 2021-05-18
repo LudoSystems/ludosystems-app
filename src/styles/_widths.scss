@@ -1,0 +1,15 @@
+$break-point-max: 750px;
+
+$content-default: 750px;
+
+/** Other mixins **/
+@mixin centered($content-width) {
+    width: $content-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin default() {
+    @include centered(90%);
+    max-width: 90%;
+}

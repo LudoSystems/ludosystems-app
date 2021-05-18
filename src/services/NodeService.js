@@ -1,8 +1,7 @@
 import axios from "axios";
 import authHeader from "./authHeader";
 
-const API = "http://localhost:8080/";
-const API_NODES = API + "nodes/"
+const API_NODES = process.env.REACT_APP_API_URI + "nodes/"
 
 const NodeService = {
     getNodes: () => {

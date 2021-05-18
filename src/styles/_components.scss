@@ -1,0 +1,40 @@
+@use './_fonts';
+@use './_borders';
+@use './_colors';
+
+@mixin unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@mixin button {
+    @include fonts.header-bold();
+    @include unselectable();
+    
+    display: inline-block;
+    margin: 2px; 
+    
+    color: black;
+    text-decoration: none;
+    
+    padding: 1px 4px 1px 4px;
+    border: borders.$black;
+
+    background-color: white;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: colors.$accent;
+        color: white;
+    }
+
+    &:active {
+        background-color: colors.$accent-active;
+        color: white;
+    }
+}

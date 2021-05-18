@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;700&display=swap');
+
+/*
+* Imported Google Fonts
+*
+* Header: Poppins (300, 400, 500, 700)
+* Body: Open-Sans (400, 400 italic, 700, 700 italic)
+*
+* For a sans-serif body font alternative, I recommend Open Sans.
+*
+*/
+
+$header-font: 'Poppins', sans-serif;
+$body-font: 'Open-Sans', sans-serif;
+
+@mixin header-bold {
+    font-family: $header-font;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@mixin header-medium {
+    font-family: $header-font;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin header-regular {
+    font-family: $header-font;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin header-light {
+    font-family: $header-font;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin body-regular {
+    font-family: $body-font;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin body-bold {
+    font-family: $body-font;
+    font-weight: 700;
+    font-style: normal;
+}

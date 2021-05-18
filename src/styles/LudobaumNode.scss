@@ -1,0 +1,28 @@
+@use "./_fonts";
+@use "./_borders";
+@use "./_colors";
+
+.ludobaum-node {
+    @include fonts.body-regular();
+
+    color: black;
+    border: borders.$black;
+    padding: 10px;
+
+    .ludobaum-node-title {
+        @include fonts.header-medium();
+    }
+    
+    .ludobaum-node-handle {
+        background-color: colors.$accent;
+    }
+    
+    .ludobaum-node-handle.react-flow__handle-connecting {
+        background-color: red;
+        cursor: cell;
+    }
+
+    .ludobaum-node-handle.react-flow__handle-valid {
+        background-color: green;
+    }
+}

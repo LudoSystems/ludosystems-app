@@ -205,6 +205,17 @@ nav {
     margin-left: 5px;
 
     font-size: 1.0rem;
+
+ 
+}
+
+#node-add-button {
+    color: colors.$green;
+
+    &:hover {
+        color: white;
+        background-color: colors.$green;
+    }
 }
 
 .warning {

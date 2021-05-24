@@ -1,118 +1,96 @@
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 import AuthService from "../services/AuthService";
 
-const required = value => {
-    if(!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                Required field!
-            </div>
-        );
-    }
+const initialValues = {
+    username: "",
+    password: "",
 };
 
+const loginSchema = Yup.object().shape({
+    username: Yup.string().required("Required"),
+    password: Yup.string().required("Required"),
+
+});
+
 const Login = (props) => {
-    const form = useRef();
-    const checkBtn = useRef();
-
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
 
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
-    };
-
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-
-        setMessage("");
+    const submitForm = (values) => {
         setLoading(true);
-
-        form.current.validateAll();
-
-        if(checkBtn.current.context._errors.length === 0) {
-            AuthService.login(username, password).then(
-                () => {
-                    props.history.push("/nodes");
-                    window.location.reload();
-                },
-                (error) => {
-                    const resMessage = 
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message || 
-                        error.toString();
-
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
-        } else {
-            setLoading(false);
-        }
+        setError("");
+    
+        AuthService.login(values.username, values.password).then(
+            () => {
+                props.history.push("/nodes");
+                window.location.reload();
+            },
+            (error) => {
+                setLoading(false);
+                setError("Incorrect username or password.");
+            }
+        );
     };
 
     return (
-        <div className="login-form">
-            <Form onSubmit={handleLogin} ref={form}>
-                <div>
-                    <label htmlFor="username">username</label>
-                    <Input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={username}
-                        onChange={onChangeUsername}
-                        validations={[required]}
-                    />
-                </div>
+        <Formik 
+            initialValues={initialValues}
+            validationSchema={loginSchema}
+            onSubmit={submitForm}
+        >
+            {(formik) => {
+                const { errors, touched, isValid, dirty } = formik;
+            
+                return (
+                    <div className="login-container">
+                        <h1>Log in</h1>
+                        <Form>
+                            <div className="form-row">
+                                <label htmlFor="username">Username</label>
+                                <Field
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    className={errors.username && touched.username ? "input-error" : null}
+                                />
+                                <ErrorMessage name="username" component="span" className="error" />
+                            </div>
+                            <div className="form-row">
+                                <label htmlFor="password">Password</label>
+                                <Field
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    className={errors.password && touched.password ? "input-error" : null}
+                                />
+                                <ErrorMessage name="password" component="span" className="error" />
+                            </div>
 
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={password}
-                        onChange={onChangePassword}
-                        validations={[required]}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <button className="button" disabled={loading}>
-                        {loading && (
-                            <span className="spinner">Loading...</span>
-                        )}
-                        <span>Login</span>
-                    </button>
-                </div>
-
-                {message && (
-                    <div className="form-group">
-                        <div className="alert alert-danger" role="alert">
-                            {message}
-                        </div>
+                            <button
+                                type="submit"
+                                className={dirty && isValid ? "" : "disabled-btn"}
+                                disabled={!(dirty && isValid)}
+                            >
+                            {loading ? (
+                                <span className="spinner">Loading...</span>
+                            ):(
+                                <span>Log In</span>
+                            )}
+                            </button>
+                            {error && (
+                                <div className="alert alert-danger" role="alert">
+                                    {error}
+                                </div>
+                            )}
+                        </Form>
                     </div>
-                )}
-
-                <CheckButton style={{ display: "none" }} ref={checkBtn} />
-            </Form>
-        </div>
+                );
+            }}
+        </Formik>
     );
-}
+};
 
 export default Login;

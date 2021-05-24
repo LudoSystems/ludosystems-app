@@ -1,167 +1,105 @@
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 import AuthService from "../services/AuthService";
 
-const required = (value) => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                Required field!
-            </div>
-        );
-    }
+
+const initialValues = {
+    username: "",
+    email: "",
+    password: "",
 };
 
-const validEmail = (value) => {
-    if (!isEmail(value)) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                Invalid email.
-            </div>
-        );
-    }
-};
+const registerSchema = Yup.object().shape({
+    username: Yup.string()
+        .required("Required")
+        .min(3, "Username is too short")
+        .max(64, "Username is too long"),
+    email: Yup.string().email().required("Required"),
+    password: Yup.string()
+        .required("Required")
+        .min(8, "Password is too short.")
+        .max(64, "Password is too long"),
 
-const validUsername = (value) => {
-    if (value.length < 3 || value.length > 64) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                Username must be between 3 and 20 characters.
-            </div>
-        );
-    }
-};
-  
-const validPassword = (value) => {
-    if (value.length < 8 || value.length > 64) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                Password must be between 8 and 64 characters.
-            </div>
-        );
-    }
-};
+});
 
 const Register = (props) => {
-    const form = useRef();
-    const checkBtn = useRef();
-
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
-
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
-    };
     
-      const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
-    };
-    
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
-
-    const handleRegister = (e) => {
-        e.preventDefault();
-
+    const submitForm = (values) => {
         setMessage("");
-        setSuccessful(false);
 
-        form.current.validateAll();
-
-        if(checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, email, password).then(
-                (response) => {
-                    setMessage(response.data.message);
-                    setSuccessful(true);
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                    
-                    setMessage(resMessage);
-                    setSuccessful(false);
-                }
-            );
-        }
+        AuthService.register(values.username, values.email, values.password).then(
+            (response) => {
+                setMessage("Successfully created your account.")
+            },
+            (error) => {
+                setMessage("Registration failed. Please contact us.");
+            }
+        );
     };
 
     return (
-        <div>
-            <Form onSubmit={handleRegister} ref={form}>
-                {!successful && (
-                    <div>
-                        <div classname="form-group">
-                            <label htmlFor="username">Username</label>
-                            <Input
-                                type="text"
-                                className="form-control"
-                                name="username"
-                                value={username}
-                                onChange={onChangeUsername}
-                                validations={[required, validUsername]}
-                            />
-                        </div>
-                    
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <Input
-                                type="text"
-                                className="form-control"
-                                name="email"
-                                value={email}
-                                onChange={onChangeEmail}
-                                validations={[required, validEmail]}
-                            />
-                        </div>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={registerSchema}
+            onSubmit={submitForm}
+        >
+            {(formik) => {
+                const { errors, touched,isValid, dirty} = formik;
 
-                        <div>
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <Input
-                                    type="password"
-                                    className="form-control"
-                                    name="password"
-                                    value={password}
-                                    onChange={onChangePassword}
-                                    validations={[required, validPassword]}
+                return (
+                    <div className="register-container">
+                        <h1>Register</h1>
+                        <Form>
+                            <div className="form-row">
+                                <label htmlFor="username">Username</label>
+                                <Field
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    className={errors.username && touched.username ? "input-error" : null}
                                 />
+                                <ErrorMessage name="username" component="span" className="error" />
                             </div>
-                        </div>
-
-                        <div className="form-group">
-                            <button className="btn">Sign Up</button>
-                        </div>
+                            <div className="form-row">
+                                <label htmlFor="email">Email</label>
+                                <Field
+                                    type="text"
+                                    name="email"
+                                    id="email"
+                                    className={errors.email && touched.email ? "input-error" : null}
+                                />
+                                <ErrorMessage name="username" component="span" className="error" />
+                            </div>
+                            <div className="form-row">
+                                <label htmlFor="password">Password</label>
+                                <Field
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    className={errors.password && touched.password ? "input-error" : null}
+                                />
+                                <ErrorMessage name="password" component="span" className="error" />
+                            </div>
+                            <button
+                                type="submit"
+                                className={dirty && isValid ? "" : "disabled-btn"}
+                                disabled={!(dirty && isValid)}
+                            >
+                                <span>Register</span>
+                            </button>
+                            {message && (
+                                <div className="alert alert-danger" role="alert">
+                                    {message}
+                                </div>
+                            )}
+                        </Form>
                     </div>
-                )}
-
-                {message && (
-                    <div className="form-group">
-                        <div 
-                            className={ successful ? "alert alert-success" : "alert alert-danger" }
-                            role="alert"
-                        >
-                            {message}
-                        </div>
-                    </div>
-                )}
-                <CheckButton style={{ display:"none" }} ref={checkBtn} />
-            </Form>
-        </div>
+                );
+            }}
+        </Formik>
     );
 };
 

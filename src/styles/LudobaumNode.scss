@@ -2,27 +2,74 @@
 @use "./_borders";
 @use "./_colors";
 
-.ludobaum-node {
+
+   
+
+
+.react-flow__handle  {
+    background-color: black;
+    margin-top: -1.5px;
+    margin-bottom: -1.5px;
+
+    width: 9px;
+    height: 9px;
+}
+
+.react-flow__handle.connectable {
+    // cursor: grab;
+}
+
+.react-flow__handle-connecting {
+    // background-color: colors.$green;
+    // cursor: cell;
+}
+
+.react-flow__handle-valid {
+    background-color: colors.$green;
+    cursor: cell;
+}
+
+
+
+.react-flow__node {
     @include fonts.body-regular();
 
     color: black;
     border: borders.$black;
+    border-style: solid;
     padding: 10px;
 
-    .ludobaum-node-title {
+    background-color: white;
+
+    .node-title {
         @include fonts.header-medium();
-    }
-    
-    .ludobaum-node-handle {
-        background-color: colors.$accent;
-    }
-    
-    .ludobaum-node-handle.react-flow__handle-connecting {
-        background-color: red;
-        cursor: cell;
+        padding: 5px;
     }
 
-    .ludobaum-node-handle.react-flow__handle-valid {
-        background-color: green;
+    
+    &.selected {
+        border-color: colors.$green;
+
+        .node-title {
+            background-color: colors.$green;
+            color: white;
+        }
     }
 }
+
+.react-flow__edge-path, .react-flow__connection-path {
+    stroke: black;
+    stroke-width: 3px;
+}
+
+.react-flow__connection-path {
+    stroke-width: 1px;
+    stroke-dasharray: 5;
+    animation: connection-dash 5s linear;
+}
+
+@keyframes connection-dash {
+    from {
+      stroke-dashoffset: 100;
+    }
+  }

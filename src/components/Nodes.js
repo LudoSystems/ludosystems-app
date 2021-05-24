@@ -22,20 +22,40 @@ const nodeTypes = {
 };
 
 const Nodes = () => {
-    const currentUser = AuthService.getCurrentUser();
-
+    const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
     const [elements, setElements] = useState([]);
     const [warning, setWarning] = useState("");
 
-    const setError = (error) => {
-        const _warning =
+    const handleError = (error) => {
+        if(error.response && error.response.status === 401) {
+            // I'm not entirely convinced if this is a good way to do this.
+            // TODO check if this is a good way to do this.
+            AuthService.logout();
+            setCurrentUser(null);
+        } else {
+            const _warning =
             (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
                 error.toString();
-        
-        setWarning(_warning);
+
+            setWarning(_warning);
+        }
     };
+    
+    const createNode = useCallback((props) => {
+        return {
+            id: '' + props.id,
+            data: { 
+                label: 'Node ' + props.id,
+                nodeId: props.id,
+                attributes: props.attributes,
+                handleError: e => { handleError(e) },
+             },
+            type: 'ludobaumNode',
+            position: { x: props.posX, y: props.posY }
+        }
+    }, []);
 
     const onElementsRemove = (elementsToRemove) => {
         const nodes = elementsToRemove.filter(element => !element.source);
@@ -55,7 +75,7 @@ const Nodes = () => {
             axios.spread((...responses) => {
                 setElements((els) => removeElements(elementsToRemove, els));
               })).catch(errors => {
-                setError(errors)
+                handleError(errors)
             }
         )
     };
@@ -65,7 +85,7 @@ const Nodes = () => {
             (response) => {
                 // Nothing needs to happen
             },
-            (error) => setError(error)
+            (error) => handleError(error)
         )
     };
 
@@ -74,7 +94,7 @@ const Nodes = () => {
             (response) => {
                 setElements((els) => addEdge(params, els));
             },
-            (error) => setError(error)
+            (error) => handleError(error)
         )
     };
 
@@ -84,19 +104,18 @@ const Nodes = () => {
             posY: window.innerHeight / 2 - Math.floor(Math.random() * 10) * 10
         }).then(
             (response) => {
-                // TODO: make this a function
+                const newElement = createNode({
+                    id: response.data.id,
+                    posX: response.data.posX,
+                    posY: response.data.posY,
 
-                const newElement = {
-                    id: '' + response.data.id,
-                    data: { label: 'Node ' + response.data.id },
-                    position: { x: response.data.posX, y: response.data.posY }
-                }
+                });
 
                 setElements((els) => els.concat(newElement));
             },
-            (error) => setError(error)
+            (error) => handleError(error)
         );
-    }, [setElements]);
+    }, [setElements, createNode]);
     
     useEffect(() => {
         NodeService.getRoots().then(
@@ -105,14 +124,13 @@ const Nodes = () => {
 
                 const createFlowElements = (node, elements, edges) => {
 
-                    const element = {
-                        id: '' + node.id,
-                        data: { label: 'Node ' + node.id },
-                        type: 'ludobaumNode',
-                        position: { x: node.posX, y: node.posY }
-                    };
-
-                    elements.push(element);
+                    elements.push(createNode({
+                        id: node.id,
+                        posX: node.posX,
+                        posY: node.posY,
+                        attributes: node.attributes,
+    
+                    }));
 
                     for(const child of node.children) {
                         let childId;
@@ -125,36 +143,36 @@ const Nodes = () => {
                             childId = child;
                         }
                         
-                        const edge = {
+                        edges.push({
                             id: 'e' + node.id + '-' + childId,
                             source: '' + node.id,
                             target: '' + childId,
-                            arrowHeadType: 'arrowclosed',
-                        }
-                        edges.push(edge);
+                        });
                     }
                 };
 
-                for (const node of response.data._embedded.nodes) {
-                    const edges = [];
-
-                    createFlowElements(node, _elements, edges);
-
-                    _elements.push(...edges);
+                if(response.data._embedded) {
+                    for (const node of response.data._embedded.nodes) {
+                        const edges = [];
+    
+                        createFlowElements(node, _elements, edges);
+    
+                        _elements.push(...edges);
+                    }
                 }
-
+               
                 setElements(_elements);
             },
-            (error) => setError(error)
+            (error) => handleError(error)
         );
-    }, []);
+    }, [createNode]);
 
     return ( 
         <>
             {currentUser ? (              
                     <div id="node-editor" >
                     <div id="node-editor-controls">
-                        <button className="node-editor-control" onClick={onAdd}>+</button>
+                        <button id="node-add-button" className="node-editor-control" onClick={onAdd}>+</button>
                     </div>
                         {warning && (
                             <div className="warning">

@@ -1,18 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Handle } from 'react-flow-renderer';
 
 import TextAttribute from './TextAttribute';
+import NumberAttribute from './NumberAttribute';
 
-const LudobaumNode = ({ data }) => {
-    // useEffect(() => {
-    // }, []);
-    // data.setWarning("oh no");
-
-
-    // TODO:
-    // For each attribute in data.attributes in order of .sortOrder,
-    //      create NodeAttribute
+const LudobaumNode = memo(({ data }) => {
     return (
         <>
             <Handle
@@ -23,24 +16,38 @@ const LudobaumNode = ({ data }) => {
             {data.label}
             </div>
             <div className="node-attributes">
-                {data.attributes && data.attributes.map(attribute => (
-                    // TODO: Will need to make sure this works if there
-                    // is no text.. I assume it doesn't.
-                    // I might need to pass out a type or something else.
-                    (attribute.text ? 
-                        <TextAttribute 
-                            key={data.nodeId + '_' + attribute.id} 
-                            attributeId={attribute.id}
-                            name={attribute.name} 
-                            text={attribute.text}
-                            handleError={data.handleError}
-                        />
-                    :   
-                        <div key={data.nodeId + '_' + attribute.id}>Attribute Type of Attribute {attribute.id} is not implemented yet.</div>)
-                ))}
+                {data.attributes && data.attributes.map(attribute => {
+                    if(attribute.type === "TEXT") {
+                        return <TextAttribute 
+                                    key={data.nodeId + '_' + attribute.id} 
+                                    attributeId={attribute.id}
+                                    name={attribute.name} 
+                                    text={attribute.text}
+                                    handleError={data.handleError}
+                                />
+                    } else if (attribute.type === "NUMBER") {
+                        return <NumberAttribute 
+                                    key={data.nodeId + '_' + attribute.id} 
+                                    attributeId={attribute.id}
+                                    name={attribute.name} 
+                                    number={attribute.number}
+                                    handleError={data.handleError}
+                                />
+                    } else {
+                        return <div key={data.nodeId + '_' + attribute.id}>
+                                    Attribute Type of Attribute {attribute.id} is not implemented yet.
+                                </div>
+                    }
+                })}
             </div>
             <div>
-                {/* TODO: this is where I'll add "add attribute" buttons for the three types*/}
+                {/* TODO: this is where I'll add "add attribute" buttons for the three types
+                 *
+                 * Hint for future abbie: this should be on NodeController, not NodeAttributeController.
+                 * 
+                 * Same probably goes for delete and sort order but idk
+                 * 
+                */}
             </div>
             <Handle
             type="source"
@@ -48,6 +55,6 @@ const LudobaumNode = ({ data }) => {
             />
         </>
     );
-};
+});
 
 export default LudobaumNode;

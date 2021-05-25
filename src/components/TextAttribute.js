@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -14,7 +14,7 @@ const textAttributeSchema = Yup.object().shape({
         .max(4096, "Text can be max 4096 characters."),
 });
 
-const TextAttribute = (props) => {
+const TextAttribute = memo((props) => {
     const [editing, setEditing] = useState(false);
 
     const [name, setName] = useState(props.name);
@@ -54,17 +54,7 @@ const TextAttribute = (props) => {
     const onCancelClick = (e) => {
         setEditing(false);
     }
-    /*
-
-    {id: 8, sortOrder: 0, name: "Character", list: Object, currentElement: {id: 2, text: "NPC", sortOrder: 1}}
-                --> List: elements[
-                    {id: 1, text: "Player", sortOrder: 0},
-                    {id: 2, text: "NPC", sortOrder: 1}
-                }]
-    {id: 6, sortOrder: 2, name: "Priority", number: 1}
-    {id: 7, sortOrder: 1, name: "Text", "text: "Hi!"}
-    */
-
+    
     return (
         <>
         {editing ? (
@@ -137,6 +127,6 @@ const TextAttribute = (props) => {
         )}
     </>
     );
-};
+});
 
 export default TextAttribute;

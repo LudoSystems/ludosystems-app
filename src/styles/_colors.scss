@@ -1,8 +1,11 @@
-$primary: #77C7E9;
-$accent: #40809C;
-$accent-active: lighten($accent, 30%);
+$background: black;
 
-$red: #E88E9C;
+$active: #40809C;
+$active-darker: darken($active, 10%);
+
+$blue: #77C7E9;
+$red: #D7334E;
+$light-red: #E88E9C;
 $yellow: #E8E25F;
 $brown: #9C9848;
 $green: #4F9C8A;

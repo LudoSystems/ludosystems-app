@@ -67,7 +67,7 @@ const NumberAttribute = memo((props) => {
                     const { errors, touched, isValid, dirty } = formik;
     
                     return (
-                        <div className="login-container">
+                        <div className="node-attribute-display">
                             <Form>
                                 <div className="form-row">
                                     <label htmlFor="name">Name</label>
@@ -110,19 +110,20 @@ const NumberAttribute = memo((props) => {
         ) : (
             <>
                 <div className="node-attribute-display">
-                    <span className="node-attribute-display-name">
+                    <div className="node-attribute-display-name">
                         {name}
-                    </span>
-                    <span className="node-attribute-display-number">
+                    </div>
+                    <div className="node-attribute-display-number">
                         {number}
-                    </span>
+                    </div>
+                    <button 
+                        className="node-attribute-button edit"
+                        onClick={onEditClick}
+                    >
+                        Edit
+                    </button>
                 </div>
-                <button 
-                    className="node-attribute-button edit"
-                    onClick={onEditClick}
-                >
-                    Edit
-                </button>
+          
             </>
         )}
     </>

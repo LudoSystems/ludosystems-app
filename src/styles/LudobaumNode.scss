@@ -2,10 +2,6 @@
 @use "./_borders";
 @use "./_colors";
 
-
-   
-
-
 .react-flow__handle  {
     background-color: black;
     margin-top: -1.5px;
@@ -48,10 +44,10 @@
 
     
     &.selected {
-        border-color: colors.$green;
+        border-color: colors.$active;
 
         .node-title {
-            background-color: colors.$green;
+            background-color: colors.$active;
             color: white;
         }
     }
@@ -73,3 +69,29 @@
       stroke-dashoffset: 100;
     }
   }
+
+
+/** Node Attributes **/
+
+.node-attribute-display {
+    display: flex;
+
+    justify-content: space-between;
+
+    .node-attribute-display-name {
+        @include fonts.body-bold();
+    }
+
+
+    form {
+        display: flex;
+
+        label {
+            font-size: 0.8rem;
+            display: block;
+        }
+    }
+    
+
+}
+

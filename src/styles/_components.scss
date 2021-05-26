@@ -29,12 +29,12 @@
     cursor: pointer;
 
     &:hover {
-        background-color: colors.$accent;
+        background-color: colors.$blue;
         color: white;
     }
 
     &:active {
-        background-color: colors.$accent-active;
+        background-color: colors.$active;
         color: white;
     }
 }

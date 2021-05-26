@@ -16,7 +16,7 @@ body {
     min-height: 100vh;
     max-height: 100vh;
 
-    background-color: colors.$primary;
+    background-color: colors.$background;
 
     color: white;
 }
@@ -29,7 +29,7 @@ a {
     }
 
     &:active {
-        color: colors.$accent;
+        color: colors.$active;
     }
 }
 
@@ -128,22 +128,16 @@ nav {
     border: borders.$blank;
     
     &:hover {
-        color: colors.$primary;
-        background-color: white;
-        border: borders.$white;
+        color: colors.$blue;
     }
 
     &:active {
-        color: colors.$accent;
-        border-color: colors.$accent;
+        color: colors.$active;
     }
 }
 
 #site-logo {
     margin-right: 20px;
-
-    padding: 5px;
-    border: borders.$blank;
 
     @media (max-width: widths.$break-point-max) {
         position: fixed;
@@ -153,23 +147,37 @@ nav {
 
     svg {
         display: block;
-        fill: white;
+
+        #site-logo-ludo {
+            fill: white;
+        }
+
+        #site-logo-systems {
+            fill: colors.$green;
+        }
     }
     
     &:hover {
-        background-color: white;
-        border-color: white;
-
         svg {
-            fill: colors.$primary;
+            #site-logo-ludo {
+                fill: colors.$blue;
+            } 
+            
+            #site-logo-systems {
+                fill: colors.$active;
+            }                
         }
     }
 
     &:active {
-        border-color: colors.$accent;
-
         svg {
-            fill: colors.$accent;
+            #site-logo-ludo{
+                fill: colors.$active;
+            }
+
+            #site-logo-systems {
+                fill: colors.$active-darker;
+            }
         }
     }
 }
@@ -240,4 +248,31 @@ nav {
         @include fonts.body-bold();
         content: "Warning: ";
     }
+}
+
+.ui-button {
+    .interior-background {
+        fill: white;
+    }
+}
+
+.editor-button {
+    width: 100px;
+}
+
+.circle-button {
+    width: 30px;
+    height: 30px;
+}
+
+.change-button {
+    fill: colors.$blue;
+}
+
+.create-button {
+    fill: colors.$green;
+}
+
+.remove-button {
+    fill: colors.$red;
 }

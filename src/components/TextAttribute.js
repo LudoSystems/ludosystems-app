@@ -2,6 +2,17 @@ import React, { useState, memo } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+import { ReactComponent as EditButton } from '../svg/button-edit.svg';
+import { ReactComponent as DragButton } from '../svg/button-drag.svg';
+import { ReactComponent as DeleteButton } from '../svg/button-delete.svg';
+import { ReactComponent as CancelButton } from '../svg/button-cancel.svg';
+import { ReactComponent as ConfirmButton } from '../svg/button-confirm.svg';
+import { ReactComponent as AddButton } from '../svg/button-add.svg';
+import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
+import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
+import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
+import { ReactComponent as AddNodeButton } from '../svg/button-add-node.svg';
+
 import AttributeService from "../services/AttributeService";
 
 const textAttributeSchema = Yup.object().shape({
@@ -67,7 +78,7 @@ const TextAttribute = memo((props) => {
                     const { errors, touched, isValid, dirty } = formik;
     
                     return (
-                        <div className="login-container">
+                        <div className="node-attribute-display">
                             <Form>
                                 <div className="form-row">
                                     <label htmlFor="name">Name</label>
@@ -110,19 +121,32 @@ const TextAttribute = memo((props) => {
         ) : (
             <>
                 <div className="node-attribute-display">
-                    <span className="node-attribute-display-name">
+                    <div className="node-attribute-display-name">
                         {name}
-                    </span>
-                    <span className="node-attribute-display-text">
+                    </div>
+                    <div className="node-attribute-display-text">
                         {text}
-                    </span>
-                </div>
-                <button 
-                    className="node-attribute-button edit"
-                    onClick={onEditClick}
-                >
+                    </div>
+                    <button 
+                        className="node-attribute-button edit"
+                        onClick={onEditClick}
+                    >
                     Edit
-                </button>
+                    </button>
+                </div>
+                <div style={{display:"flex"}}>
+                    <EditButton />
+                    <DragButton />
+                    <DeleteButton />
+                    <CancelButton />
+                    <ConfirmButton />
+                    <AddButton />
+                    <AddTextButton />
+                    <AddNumberButton />
+                    <AddListButton />
+                    <AddNodeButton />
+                </div>
+
             </>
         )}
     </>

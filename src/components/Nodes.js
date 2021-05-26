@@ -15,6 +15,8 @@ import AuthService from "../services/AuthService";
 import LudobaumNode from './LudobaumNode';
 import '../styles/LudobaumNode.scss';
 
+import { ReactComponent as AddNodeButton } from '../svg/button-add-node.svg';
+
 const snapGrid = [10,10];
 
 const nodeTypes = {
@@ -172,7 +174,9 @@ const Nodes = () => {
             {currentUser ? (              
                     <div id="node-editor" >
                     <div id="node-editor-controls">
-                        <button id="node-add-button" className="node-editor-control" onClick={onAdd}>+</button>
+                        <button id="node-add-button" className="node-editor-control" onClick={onAdd}>
+                            <AddNodeButton />
+                        </button>
                     </div>
                         {warning && (
                             <div className="warning">

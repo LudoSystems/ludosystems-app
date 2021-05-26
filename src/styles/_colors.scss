@@ -9,5 +9,7 @@ $light-red: #E88E9C;
 $yellow: #E8E25F;
 $brown: #9C9848;
 $green: #4F9C8A;
+$green-lighter: lighten($green, 30%);
+$green-darker: darken($green, 10%);
 
 $text: #333;

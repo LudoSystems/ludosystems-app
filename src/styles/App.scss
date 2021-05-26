@@ -193,37 +193,9 @@ nav {
 }
 
 #node-editor-controls {
-    z-index: 20;
-    height: 25%;
-
     position: absolute;
-
-    background-color: white;
-
-    width: 50px;
-
-    border-right: borders.$black;
-    border-bottom: borders.$black;
-}
-
-.node-editor-control {
-    @include components.button();
-
-    width: 40px;
-    margin-left: 5px;
-
-    font-size: 1.0rem;
-
- 
-}
-
-#node-add-button {
-    color: colors.$green;
-
-    &:hover {
-        color: white;
-        background-color: colors.$green;
-    }
+    z-index: 5;
+    padding: 15px;    
 }
 
 .warning {
@@ -257,7 +229,7 @@ nav {
 }
 
 .editor-button {
-    width: 100px;
+    // width: 100px;
 }
 
 .circle-button {
@@ -275,4 +247,38 @@ nav {
 
 .remove-button {
     fill: colors.$red;
+}
+
+#node-add-button {
+    background: none;
+    border: none;
+
+    cursor: pointer;
+    width: 100px;
+
+    &:hover {
+        svg {
+            .interior-background {
+                fill: colors.$blue;
+            }
+            .create-button .interior-background {
+                fill: colors.$green-lighter;
+            }
+        }
+    }
+
+    &:active {
+        svg { 
+            .interior-background {
+                fill: colors.$active;
+            }
+
+            .create-button {
+                fill: colors.$green-darker;
+            }
+            .create-button .interior-background {
+                fill: colors.$green;
+            }
+        }
+    }
 }

@@ -11,7 +11,6 @@ import { ReactComponent as AddButton } from '../svg/button-add.svg';
 import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
 import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
 import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
-import { ReactComponent as AddNodeButton } from '../svg/button-add-node.svg';
 
 import AttributeService from "../services/AttributeService";
 
@@ -144,7 +143,6 @@ const TextAttribute = memo((props) => {
                     <AddTextButton />
                     <AddNumberButton />
                     <AddListButton />
-                    <AddNodeButton />
                 </div>
 
             </>

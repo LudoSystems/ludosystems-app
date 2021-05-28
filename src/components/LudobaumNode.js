@@ -1,14 +1,41 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 
 import { Handle } from 'react-flow-renderer';
 
+import AttributeService from "../services/AttributeService";
+
 import TextAttribute from './TextAttribute';
 import NumberAttribute from './NumberAttribute';
-//import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
-//import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
-//import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
+
+import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
+import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
+import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
 
 const LudobaumNode = memo(({ data }) => {
+    const [attributes, setAttributes] = useState(data.attributes);
+
+    const onAddTextClick = (e) => {
+        AttributeService.createTextAttribute(data.nodeId).then(
+            (response) => {
+                setAttributes([...attributes, response.data]);
+            },
+            (error) => data.handleError(error)
+        );
+    };
+
+    const onAddNumberClick = (e) => {
+        AttributeService.createNumberAttribute(data.nodeId).then(
+            (response) => {
+                setAttributes([...attributes, response.data]);
+            },
+            (error) => data.handleError(error)
+        );
+    };
+
+    const deleteAttribute = (id) => {
+        setAttributes(attributes.filter(attribute => attribute.id !== id));
+    };
+
     return (
         <>
             <Handle
@@ -19,7 +46,7 @@ const LudobaumNode = memo(({ data }) => {
             {data.label}
             </div>
             <div className="nodrag node-attributes">
-                {data.attributes && data.attributes.map(attribute => {
+                {attributes && attributes.map(attribute => {
                     if(attribute.type === "TEXT") {
                         return <TextAttribute 
                                     key={data.nodeId + '_' + attribute.id} 
@@ -27,6 +54,7 @@ const LudobaumNode = memo(({ data }) => {
                                     name={attribute.name} 
                                     text={attribute.text}
                                     handleError={data.handleError}
+                                    deleteAttribute={deleteAttribute}
                                 />
                     } else if (attribute.type === "NUMBER") {
                         return <NumberAttribute 
@@ -35,6 +63,7 @@ const LudobaumNode = memo(({ data }) => {
                                     name={attribute.name} 
                                     number={attribute.number}
                                     handleError={data.handleError}
+                                    deleteAttribute={deleteAttribute}
                                 />
                     } else {
                         return <div key={data.nodeId + '_' + attribute.id}>
@@ -43,17 +72,27 @@ const LudobaumNode = memo(({ data }) => {
                     }
                 })}
             </div>
-            <div>
-                {/* TODO: this is where I'll add "add attribute" buttons for the three types
-                 *
-                 * Hint for future abbie: this should be on NodeController, not NodeAttributeController.
-                 * 
-                 * Same probably goes for delete and sort order but idk
-                 *      <AddTextButton />
-                    <AddNumberButton />
-                    <AddListButton />
-                 * 
-                */}
+            <div className="nodrag node-attribute-button-panel">
+                 <button
+                    title="Add Text Attribute"
+                    className="node-attribute-button add-text"
+                    onClick={onAddTextClick}
+                    >
+                <AddTextButton />
+                </button>
+                <button
+                    title="Add Number Attribute"
+                    className="node-attribute-button add-number"
+                    onClick={onAddNumberClick}
+                    >
+                <AddNumberButton />
+                </button>
+                <button
+                    className="node-attribute-button add-list disabled"
+                    title="Coming soon!"
+                    >
+                <AddListButton />
+                </button>
             </div>
             <Handle
             type="source"

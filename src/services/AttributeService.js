@@ -26,12 +26,20 @@ const AttributeService = {
         });
     },
     
-    addAttribute: async (attribute) => {
-        return await axios.post(API_ATTRIBUTES + "add", attribute, { headers: authHeader() });
+    createTextAttribute: async (nodeId) => {
+        return await axios.post(API_ATTRIBUTES_TEXT + "create/" + nodeId, null, { headers: authHeader() });
     },
 
-    deleteAttribute: async (id) => {
-        return await axios.delete(API_ATTRIBUTES + id, { headers: authHeader() });
+    createNumberAttribute: async (nodeId) => {
+        return await axios.post(API_ATTRIBUTES_NUMBER + "create/" + nodeId, null, {headers: authHeader() });
+    },
+
+    deleteTextAttribute: async (id) => {
+        return await axios.delete(API_ATTRIBUTES_TEXT + id, { headers: authHeader() });
+    },
+
+    deleteNumberAttribute: async (id) => {
+        return await axios.delete(API_ATTRIBUTES_NUMBER + id, { headers: authHeader() });
     },
 
     updateAttributeOrder: async (id, sortOrder) => {

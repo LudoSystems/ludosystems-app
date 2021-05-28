@@ -29,12 +29,15 @@ const Nodes = () => {
     const [warning, setWarning] = useState("");
 
     const handleError = (error) => {
-        if(error.response && error.response.status === 401) {
+        // if(error.response && error.response.status === 401) {
             // I'm not entirely convinced if this is a good way to do this.
+    
             // TODO check if this is a good way to do this.
-            AuthService.logout();
-            setCurrentUser(null);
-        } else {
+        
+        
+            // AuthService.logout();
+            // setCurrentUser(null);
+        // } else {
             const _warning =
             (error.response &&
                 error.response.data &&
@@ -42,7 +45,7 @@ const Nodes = () => {
                 error.toString();
 
             setWarning(_warning);
-        }
+        // }
     };
     
     const createNode = useCallback((props) => {
@@ -100,7 +103,7 @@ const Nodes = () => {
         )
     };
 
-    const onAdd = useCallback(() => {
+    const onAddClick = () => {
         NodeService.addNode({
             posX: window.innerWidth / 2 - Math.floor(Math.random() * 10) * 10,
             posY: window.innerHeight / 2 - Math.floor(Math.random() * 10) * 10
@@ -117,7 +120,7 @@ const Nodes = () => {
             },
             (error) => handleError(error)
         );
-    }, [setElements, createNode]);
+    };
     
     useEffect(() => {
         NodeService.getRoots().then(
@@ -174,8 +177,11 @@ const Nodes = () => {
             {currentUser ? (              
                     <div id="node-editor" >
                     <div id="node-editor-controls">
-                        <button id="node-add-button" className="node-editor-control" onClick={onAdd}>
-                            <AddNodeButton />
+                        <button 
+                            id="node-add-button" 
+                            className="node-editor-control" 
+                            onClick={onAddClick}>
+                                <AddNodeButton />
                         </button>
                     </div>
                         {warning && (

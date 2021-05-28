@@ -35,13 +35,20 @@ const TextAttribute = memo((props) => {
 
     const submitForm = (values) => {
         setEditing(false);
+        setName(values.name);
+        setText(values.text);
+
+        console.log("Updated form");
 
         AttributeService.updateTextAttribute(values.id, values.name, values.text).then(
             (response) => {
-                console.log(response);
+                if(values.name !== response.data.name) {
+                    setName(response.data.name);
+                }
+                if(values.text !== response.data.text) {
+                    setText(response.data.text);
+                }
 
-                setName(response.data.name);
-                setText(response.data.text);
                 setInitialValues(prevValue => ({
                     id: prevValue.id,
                     name: response.data.name,
@@ -61,6 +68,17 @@ const TextAttribute = memo((props) => {
     const onCancelClick = (e) => {
         setEditing(false);
     };
+
+    const onDeleteClick = (e) => {
+        AttributeService.deleteTextAttribute(props.attributeId).then(
+            (response) => {
+                props.deleteAttribute(props.attributeId);
+            },
+            (error) => {
+                props.handleError(error);
+            }
+        );
+    }
 
     return (
         <>
@@ -103,17 +121,19 @@ const TextAttribute = memo((props) => {
                                         className={"node-attribute-button confirm" + (dirty && isValid ? "" : " disabled")}
                                         disabled={!(dirty && isValid)}
                                         >
-                                    <ConfirmButton />
+                                        <ConfirmButton />
                                     </button>
                                     <button
+                                        type="reset"
                                         className="node-attribute-button cancel"
                                         onClick={onCancelClick}>
                                         <CancelButton />
                                     </button>
                                     <button 
+                                        type="button"
                                         className="node-attribute-button delete"
-                                        // onClick={onDeleteClick}
-                                    >
+                                        onClick={onDeleteClick}
+                                        >
                                         <DeleteButton />
                                     </button>
                                 </div>

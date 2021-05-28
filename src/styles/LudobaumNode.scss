@@ -50,6 +50,12 @@
             background-color: colors.$active;
             color: white;
         }
+
+        .node-attribute-button-panel.viewing {
+            .node-attribute-button{
+                display: block;
+            }
+        }
     }
 }
 
@@ -72,6 +78,18 @@
 
 
 /** Node Attributes **/
+.node-attributes {
+
+    // TODO: make this a background colour on the node instead,
+    // and make that background change on select. That part should
+    // be the handle we use to drag the node.
+
+    border: borders.$black;
+    padding: 10px;
+
+    cursor: auto;
+    
+}
 
 .node-attribute-display {
     display: flex;
@@ -89,6 +107,25 @@
         label {
             font-size: 0.8rem;
             display: block;
+        }
+    }
+
+
+    &.text-attribute-editor {
+        .text-attribute-name-editor {
+            input {
+                @include fonts.body-bold();
+            }
+        }
+    }
+
+    input, textarea {
+        font-size: 1.0rem;
+        border: borders.$blue;
+
+        &:focus {
+            outline: none;
+            border: borders.$active;
         }
     }
     

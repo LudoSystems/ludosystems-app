@@ -8,9 +8,6 @@ import { ReactComponent as DeleteButton } from '../svg/button-delete.svg';
 import { ReactComponent as CancelButton } from '../svg/button-cancel.svg';
 import { ReactComponent as ConfirmButton } from '../svg/button-confirm.svg';
 import { ReactComponent as AddButton } from '../svg/button-add.svg';
-import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
-import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
-import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
 
 import AttributeService from "../services/AttributeService";
 
@@ -63,8 +60,8 @@ const TextAttribute = memo((props) => {
 
     const onCancelClick = (e) => {
         setEditing(false);
-    }
-    
+    };
+
     return (
         <>
         {editing ? (
@@ -77,9 +74,9 @@ const TextAttribute = memo((props) => {
                     const { errors, touched, isValid, dirty } = formik;
     
                     return (
-                        <div className="node-attribute-display">
+                        <div className="node-attribute-display text-attribute-editor">
                             <Form>
-                                <div className="form-row">
+                                <div className="text-attribute-name-editor">
                                     <label htmlFor="name">Name</label>
                                     <Field
                                         type="text"
@@ -89,7 +86,7 @@ const TextAttribute = memo((props) => {
                                     />
                                     <ErrorMessage name="name" component="span" className="error" />
                                 </div>
-                                <div className="form-row">
+                                <div className="text-attribute-text-editor">
                                     <label htmlFor="text">Text</label>
                                     <Field
                                         as="textarea"
@@ -99,19 +96,27 @@ const TextAttribute = memo((props) => {
                                     />
                                     <ErrorMessage name="text" component="span" className="error" />
                                 </div>
-                                <Field type="hidden" name="id" id="id" /> 
-                                <button
-                                    type="submit"
-                                    className={dirty && isValid ? "" : "disabled-btn"}
-                                    disabled={!(dirty && isValid)}
-                                >
-                                Save
-                                </button>
-                                <button
-                                    className="node-attribute-button cancel"
-                                    onClick={onCancelClick}>
-                                    Cancel
-                                </button>
+                                <Field type="hidden" name="id" id="id" />
+                                <div className="node-attribute-button-panel editing">
+                                    <button
+                                        type="submit"
+                                        className={"node-attribute-button confirm" + (dirty && isValid ? "" : " disabled")}
+                                        disabled={!(dirty && isValid)}
+                                        >
+                                    <ConfirmButton />
+                                    </button>
+                                    <button
+                                        className="node-attribute-button cancel"
+                                        onClick={onCancelClick}>
+                                        <CancelButton />
+                                    </button>
+                                    <button 
+                                        className="node-attribute-button delete"
+                                        // onClick={onDeleteClick}
+                                    >
+                                        <DeleteButton />
+                                    </button>
+                                </div>
                             </Form>
                         </div>
                     );
@@ -126,25 +131,21 @@ const TextAttribute = memo((props) => {
                     <div className="node-attribute-display-text">
                         {text}
                     </div>
-                    <button 
-                        className="node-attribute-button edit"
-                        onClick={onEditClick}
-                    >
-                    Edit
-                    </button>
+                    <div className="node-attribute-button-panel viewing">
+                        <button 
+                            className="node-attribute-button edit"
+                            onClick={onEditClick}
+                        >
+                            <EditButton />
+                        </button>
+                        <button 
+                            className="node-attribute-button edit"
+                            // no on Click, this should be a drag handle
+                        >
+                            <DragButton />
+                        </button>
+                    </div>
                 </div>
-                <div style={{display:"flex"}}>
-                    <EditButton />
-                    <DragButton />
-                    <DeleteButton />
-                    <CancelButton />
-                    <ConfirmButton />
-                    <AddButton />
-                    <AddTextButton />
-                    <AddNumberButton />
-                    <AddListButton />
-                </div>
-
             </>
         )}
     </>

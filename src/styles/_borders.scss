@@ -1,6 +1,7 @@
 @use './_colors';
 
 $black: 3px solid black;
+$blue: 3px solid colors.$blue;
 $active: 3px solid colors.$active;
 $white: 3px solid white;
 $blank: 3px solid transparent;

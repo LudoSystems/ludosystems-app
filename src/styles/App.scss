@@ -192,12 +192,6 @@ nav {
     background-color: white;
 }
 
-#node-editor-controls {
-    position: absolute;
-    z-index: 5;
-    padding: 15px;    
-}
-
 .warning {
     @include fonts.body-regular();
     position: absolute;
@@ -222,63 +216,194 @@ nav {
     }
 }
 
+#node-editor-controls {
+    position: absolute;
+    z-index: 5;
+    padding: 15px;    
+
+    .node-editor-control {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    
+        width: 75px;
+    }
+    
+
+    &:hover {
+
+    }
+
+    &:active {
+
+    }
+
+
+    #node-add-button {
+        &:hover {
+            svg {
+                .interior-background {
+                    fill: colors.$blue;
+                }
+                .create-button {
+                    fill: darken(colors.$green, 10%);
+
+                    .interior-background {
+                        fill: lighten(colors.$green, 40%); 
+                    }
+                }
+            }
+        }
+    
+        &:active {
+            svg { 
+                .interior-background {
+                    fill: colors.$active;
+                }
+    
+                .create-button {
+                    fill: darken(colors.$green, 20%);
+
+                    .interior-background {
+                        fill: lighten(colors.$green, 30%); 
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** UI Buttons **/
+
 .ui-button {
     .interior-background {
         fill: white;
     }
 }
 
-.editor-button {
-    // width: 100px;
+.node-attribute-button-panel.viewing{
+    display: flex;
+
+    width: 70px;
+
+    .node-attribute-button {
+        display: none;
+    }
 }
 
-.circle-button {
+.node-attribute-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
     width: 30px;
     height: 30px;
-}
+  
+    &.edit, &.confirm {
+        margin-right: 3px;
+    }
 
-.change-button {
-    fill: colors.$blue;
+    &.cancel {
+        margin-right: 10px;
+    }
 }
 
 .create-button {
     fill: colors.$green;
-}
-
-.remove-button {
-    fill: colors.$red;
-}
-
-#node-add-button {
-    background: none;
-    border: none;
-
-    cursor: pointer;
-    width: 100px;
 
     &:hover {
-        svg {
-            .interior-background {
-                fill: colors.$blue;
-            }
-            .create-button .interior-background {
-                fill: colors.$green-lighter;
-            }
+        fill: darken(colors.$green, 10%);
+
+        .interior-background {
+            fill: lighten(colors.$green, 40%); 
         }
     }
 
     &:active {
-        svg { 
-            .interior-background {
-                fill: colors.$active;
-            }
 
-            .create-button {
-                fill: colors.$green-darker;
+        fill: darken(colors.$green, 20%);
+
+        .interior-background {
+            fill: lighten(colors.$green, 30%); 
+        }
+    }
+}
+
+.change-button {
+    fill: colors.$blue;
+    
+    &:hover {
+        fill: darken(colors.$blue, 10%);
+
+        .interior-background {
+            fill: lighten(colors.$blue, 20%); 
+        }
+    }
+
+    &:active {
+        fill: darken(colors.$blue, 20%);
+
+        .interior-background {
+            fill: lighten(colors.$blue, 10%); 
+        }
+    }
+}
+
+.remove-button {
+    fill: colors.$red;
+
+    &:hover {
+        fill: darken(colors.$red, 10%);
+
+        .interior-background {
+            fill: lighten(colors.$red, 40%); 
+        }
+    }
+
+    &:active {
+
+        fill: darken(colors.$red, 20%);
+
+        .interior-background {
+            fill: lighten(colors.$red, 30%); 
+        }
+    }
+}
+
+.disabled {
+    cursor: not-allowed;
+
+    svg {
+        fill: #BBB;
+
+        &:hover {
+            fill: #BBB;
+            
+            .interior-background {
+                fill: white;
             }
-            .create-button .interior-background {
-                fill: colors.$green;
+        }
+        &:active {
+            fill: #BBB;
+
+            .interior-background {
+                fill: white;
             }
         }
     }
 }
+
+.node-attribute-button-panel {
+
+    // TODO: should be based on node being selected instead.
+
+    // opacity: 0.5;
+
+//     &:hover {
+//         opacity: 1;
+//     }
+}
+
+

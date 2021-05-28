@@ -4,6 +4,9 @@ import { Handle } from 'react-flow-renderer';
 
 import TextAttribute from './TextAttribute';
 import NumberAttribute from './NumberAttribute';
+//import { ReactComponent as AddTextButton } from '../svg/button-add-text.svg';
+//import { ReactComponent as AddNumberButton } from '../svg/button-add-number.svg';
+//import { ReactComponent as AddListButton } from '../svg/button-add-list.svg';
 
 const LudobaumNode = memo(({ data }) => {
     return (
@@ -15,7 +18,7 @@ const LudobaumNode = memo(({ data }) => {
             <div className="node-title">
             {data.label}
             </div>
-            <div className="node-attributes">
+            <div className="nodrag node-attributes">
                 {data.attributes && data.attributes.map(attribute => {
                     if(attribute.type === "TEXT") {
                         return <TextAttribute 
@@ -46,6 +49,9 @@ const LudobaumNode = memo(({ data }) => {
                  * Hint for future abbie: this should be on NodeController, not NodeAttributeController.
                  * 
                  * Same probably goes for delete and sort order but idk
+                 *      <AddTextButton />
+                    <AddNumberButton />
+                    <AddListButton />
                  * 
                 */}
             </div>

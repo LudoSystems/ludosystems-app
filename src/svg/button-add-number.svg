@@ -1,5 +1,5 @@
 <svg class="ui-button circle-button create-button add-number-button" width="100%" height="100%" viewBox="0 0 125 125" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <circle class="interior-background" cx="62.5" cy="60.843" r="62.5" />
+    <circle class="interior-background" cx="62.5" cy="62.5" r="62.5" />
     <path d="M33.333,69.107l0,8.333l58.334,0l-0,-8.333l-58.334,-0Z" />
     <path d="M33.333,69.107l0,8.333l58.334,0l-0,-8.333l-58.334,-0Z" />
     <path d="M58.253,31.677l-8.334,-0l-8.198,58.333l8.333,-0l8.199,-58.333Z" />

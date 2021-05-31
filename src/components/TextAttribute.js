@@ -7,7 +7,6 @@ import { ReactComponent as DragButton } from '../svg/button-drag.svg';
 import { ReactComponent as DeleteButton } from '../svg/button-delete.svg';
 import { ReactComponent as CancelButton } from '../svg/button-cancel.svg';
 import { ReactComponent as ConfirmButton } from '../svg/button-confirm.svg';
-import { ReactComponent as AddButton } from '../svg/button-add.svg';
 
 import AttributeService from "../services/AttributeService";
 
@@ -92,9 +91,9 @@ const TextAttribute = memo((props) => {
                     const { errors, touched, isValid, dirty } = formik;
     
                     return (
-                        <div className="node-attribute-display text-attribute-editor">
+                        <div className="node-attribute editor text-attribute-editor">
                             <Form>
-                                <div className="text-attribute-name-editor">
+                                <div className="attribute-name editor">
                                     <label htmlFor="name">Name</label>
                                     <Field
                                         type="text"
@@ -104,7 +103,7 @@ const TextAttribute = memo((props) => {
                                     />
                                     <ErrorMessage name="name" component="span" className="error" />
                                 </div>
-                                <div className="text-attribute-text-editor">
+                                <div className="attribute-text editor">
                                     <label htmlFor="text">Text</label>
                                     <Field
                                         as="textarea"
@@ -115,8 +114,9 @@ const TextAttribute = memo((props) => {
                                     <ErrorMessage name="text" component="span" className="error" />
                                 </div>
                                 <Field type="hidden" name="id" id="id" />
-                                <div className="node-attribute-button-panel editing">
+                                <div className="button-panel editing">
                                     <button
+                                        title="Confirm"
                                         type="submit"
                                         className={"node-attribute-button confirm" + (dirty && isValid ? "" : " disabled")}
                                         disabled={!(dirty && isValid)}
@@ -124,12 +124,14 @@ const TextAttribute = memo((props) => {
                                         <ConfirmButton />
                                     </button>
                                     <button
+                                        title="Cancel"
                                         type="reset"
                                         className="node-attribute-button cancel"
                                         onClick={onCancelClick}>
                                         <CancelButton />
                                     </button>
                                     <button 
+                                        title="Delete"
                                         type="button"
                                         className="node-attribute-button delete"
                                         onClick={onDeleteClick}
@@ -144,27 +146,29 @@ const TextAttribute = memo((props) => {
             </Formik>
         ) : (
             <>
-                <div className="node-attribute-display">
-                    <div className="node-attribute-display-name">
+                <div className="node-attribute display">
+                    <div className="attribute-name display">
                         {name}
                     </div>
-                    <div className="node-attribute-display-text">
+                    <div className="attribute-text display">
                         {text}
                     </div>
-                    <div className="node-attribute-button-panel viewing">
+                    <div className="button-panel viewing">
                         <button 
+                            title="Edit"
                             className="node-attribute-button edit"
                             onClick={onEditClick}
                         >
                             <EditButton />
                         </button>
                         <button 
-                            className="node-attribute-button edit"
-                            // no on Click, this should be a drag handle
+                            title="Coming soon!"
+                            className="node-attribute-button drag disabled"
+                            // TODO no on Click, this should be a drag handle
                         >
                             <DragButton />
                         </button>
-                    </div>
+                    </div> 
                 </div>
             </>
         )}

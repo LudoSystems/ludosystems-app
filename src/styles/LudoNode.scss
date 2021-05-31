@@ -1,0 +1,204 @@
+@use "./_fonts";
+@use "./_borders";
+@use "./_colors";
+
+.react-flow__handle  {
+    background-color: black;
+    // margin-top: -1.5px;
+    // margin-bottom: -1.5px;
+    margin-top: 1.5px;
+    margin-bottom: 1.5px;
+
+    width: 9px;
+    height: 9px;
+}
+
+.react-flow__handle.connectable {
+    // cursor: grab;
+}
+
+.react-flow__handle-connecting {
+    // background-color: colors.$green;
+    // cursor: cell;
+}
+
+.react-flow__handle-valid {
+    background-color: colors.$green;
+    cursor: cell;
+}
+
+.react-flow__node {
+    @include fonts.body-regular();
+
+    color: black;
+
+    background-color: white;
+
+    &:hover > .ludo-node:not(.editing) {
+        border-color: colors.$blue;
+    }
+  
+    &.selected > .ludo-node {
+        border-color: colors.$active;
+    }
+}
+
+.ludo-node {
+    padding: 25px;
+
+    border: borders.$black;
+    border-width: 6px;
+
+    .button-panel.node {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &.editing {
+        border-style: double;
+        cursor: auto;
+    }
+}
+
+.react-flow__edge-path, .react-flow__connection-path {
+    stroke: black;
+    stroke-width: 3px;
+
+    cursor: pointer;
+
+    &:hover {
+        stroke: colors.$blue;
+    }
+}
+
+.react-flow__edge {
+    &.selected .react-flow__edge-path {
+        stroke: colors.$active;
+    }
+}
+
+.react-flow__connection-path {
+    stroke-width: 1px;
+    stroke-dasharray: 5;
+    animation: connection-dash 5s linear;
+}
+
+@keyframes connection-dash {
+    from {
+      stroke-dashoffset: 100;
+    }
+}
+
+/** Node Attributes **/
+.node-attributes { 
+    background-color: white;
+
+    .button-panel.viewing {
+        display: none;
+    }
+
+    &.editing {
+        .button-panel.viewing {
+            display: flex;
+        }
+    }
+}
+
+.node-attribute {
+    display: flex;
+    justify-content: flex-start;
+
+    padding-top: 15px;
+
+    min-height: 35px;
+
+    .attribute-name.display, .attribute-name.editor > input {
+        @include fonts.body-bold();
+    }
+
+    .attribute-name, .attribute-name.editor > input {
+        width: 100px;
+    }
+
+    .attribute-text, .attribute-text.editor > textarea,
+    .attribute-number {
+        width: 475px;
+    }
+
+    &.editor {
+        padding-top: 0px;
+
+        form {
+            display: flex;
+            justify-content: space-between;
+
+            label {
+                font-size: 0.8rem;
+                display: block;
+            }
+
+          
+        }
+
+        input, textarea {
+            font-size: 1.0rem;
+            border: borders.$blue;
+
+            &:focus {
+                outline: none;
+                border: borders.$active;
+            }
+        }
+
+        .button-panel {
+            padding-top: 20px;
+        }
+    }
+
+    &.empty {
+        justify-content: center;
+        color: #888;
+
+        width: 200px;
+        padding-bottom: 20px;
+    }
+
+    .button-panel {
+        align-self: flex-start;
+    }
+}
+
+.button-panel {
+    display: flex;
+    
+    &.viewing, &.editing {
+        justify-content: flex-end;
+    
+        margin-left: 20px;
+        min-width: 110px;
+    }
+
+    &.adding {
+        justify-content: center;
+        padding-top: 30px;
+
+        min-width: 110px;
+    }
+}
+
+.node-attribute-button {
+    background: none;
+    border: none;
+    padding: 0;
+
+    width: 32px;
+    height: 32px;
+
+    &.add-text, &.add-number, &.edit, &.confirm {
+        margin-right: 5px;
+    }
+
+    &.cancel {
+        margin-right: 10px;
+    }
+}

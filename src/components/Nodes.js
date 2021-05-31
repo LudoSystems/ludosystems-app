@@ -3,7 +3,8 @@ import ReactFlow, {
     removeElements, 
     addEdge, 
     MiniMap, 
-    Controls 
+    Controls,
+    Background,
 } from 'react-flow-renderer';
 
 import { Redirect } from "react-router-dom";
@@ -12,15 +13,15 @@ import axios from "axios";
 import NodeService from "../services/NodeService";
 import AuthService from "../services/AuthService";
 
-import LudobaumNode from './LudobaumNode';
-import '../styles/LudobaumNode.scss';
+import LudoNode from './LudoNode';
+import '../styles/LudoNode.scss';
 
 import { ReactComponent as AddNodeButton } from '../svg/button-add-node.svg';
 
 const snapGrid = [10,10];
 
 const nodeTypes = {
-    ludobaumNode: LudobaumNode,
+    ludoNode: LudoNode,
 };
 
 const Nodes = () => {
@@ -57,7 +58,7 @@ const Nodes = () => {
                 attributes: props.attributes,
                 handleError: e => { handleError(e) },
              },
-            type: 'ludobaumNode',
+            type: 'ludoNode',
             position: { x: props.posX, y: props.posY }
         }
     }, []);
@@ -97,6 +98,7 @@ const Nodes = () => {
     const onConnect = (params) => {
         NodeService.connectNodes(params.source, params.target).then(
             (response) => {
+                params.arrowHeadType = 'arrowclosed';
                 setElements((els) => addEdge(params, els));
             },
             (error) => handleError(error)
@@ -105,8 +107,8 @@ const Nodes = () => {
 
     const onAddClick = () => {
         NodeService.addNode({
-            posX: window.innerWidth / 2 - Math.floor(Math.random() * 10) * 10,
-            posY: window.innerHeight / 2 - Math.floor(Math.random() * 10) * 10
+            posX: Math.floor((window.innerWidth / 2 - Math.random() * 100) / 10) * 10,
+            posY: Math.floor((window.innerHeight / 2 - Math.random() * 100) / 10) * 10
         }).then(
             (response) => {
                 const newElement = createNode({
@@ -152,6 +154,7 @@ const Nodes = () => {
                             id: 'e' + node.id + '-' + childId,
                             source: '' + node.id,
                             target: '' + childId,
+                            arrowHeadType: 'arrowclosed',
                         });
                     }
                 };
@@ -199,23 +202,19 @@ const Nodes = () => {
                             snapGrid={snapGrid}
                             nodeTypes={nodeTypes}
                             deleteKeyCode={46}
+                            minZoom={0.1}
+                            arrowHeadColor="black"
                         >
-                             <MiniMap
-                                nodeColor={(node) => {
-                                    switch (node.type) {
-                                    case 'input':
-                                        return 'red';
-                                    case 'default':
-                                        return '#77C7E9';
-                                    case 'output':
-                                        return 'rgb(0,0,255)';
-                                    default:
-                                        return '#eee';
-                                    }
-                                }}
+                            <Background
+                                variant="dots"
+                                gap={10}
+                                size={0.5}
+                            />
+                            <MiniMap
+                                nodeColor="white"
                                 nodeStrokeWidth={3}
-                                />
-                                <Controls />
+                            />
+                            <Controls />
                         </ReactFlow>
                     </div>
             ) : (

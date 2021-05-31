@@ -2,6 +2,12 @@ import React, { useState, memo } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+import { ReactComponent as EditButton } from '../svg/button-edit.svg';
+import { ReactComponent as DragButton } from '../svg/button-drag.svg';
+import { ReactComponent as DeleteButton } from '../svg/button-delete.svg';
+import { ReactComponent as CancelButton } from '../svg/button-cancel.svg';
+import { ReactComponent as ConfirmButton } from '../svg/button-confirm.svg';
+
 import AttributeService from "../services/AttributeService";
 
 const numberAttributeSchema = Yup.object().shape({
@@ -55,6 +61,18 @@ const NumberAttribute = memo((props) => {
         setEditing(false);
     }
 
+
+    const onDeleteClick = (e) => {
+        AttributeService.deleteNumberAttribute(props.attributeId).then(
+            (response) => {
+                props.deleteAttribute(props.attributeId);
+            },
+            (error) => {
+                props.handleError(error);
+            }
+        );
+    }
+
     return (
         <>
         {editing ? (
@@ -67,9 +85,9 @@ const NumberAttribute = memo((props) => {
                     const { errors, touched, isValid, dirty } = formik;
     
                     return (
-                        <div className="node-attribute-display">
+                        <div className="node-attribute editor number-attribute">
                             <Form>
-                                <div className="form-row">
+                                <div className="attribute-name editor">
                                     <label htmlFor="name">Name</label>
                                     <Field
                                         type="text"
@@ -79,7 +97,7 @@ const NumberAttribute = memo((props) => {
                                     />
                                     <ErrorMessage name="name" component="span" className="error" />
                                 </div>
-                                <div className="form-row">
+                                <div className="attribute-number editor">
                                     <label htmlFor="number">Number</label>
                                     <Field
                                         type="number"
@@ -90,18 +108,31 @@ const NumberAttribute = memo((props) => {
                                     <ErrorMessage name="number" component="span" className="error" />
                                 </div>
                                 <Field type="hidden" name="id" id="id" /> 
-                                <button
-                                    type="submit"
-                                    className={dirty && isValid ? "" : "disabled-btn"}
-                                    disabled={!(dirty && isValid)}
-                                >
-                                Save
-                                </button>
-                                <button
-                                    className="node-attribute-button cancel"
-                                    onClick={onCancelClick}>
-                                    Cancel
-                                </button>
+                                <div className="button-panel editing">
+                                    <button
+                                        title="Confirm"
+                                        type="submit"
+                                        className={"node-attribute-button confirm" + (dirty && isValid ? "" : " disabled")}
+                                        disabled={!(dirty && isValid)}
+                                    >
+                                        <ConfirmButton />
+                                    </button>
+                                    <button
+                                        title="Cancel"
+                                        type="reset"
+                                        className="node-attribute-button cancel"
+                                        onClick={onCancelClick}>
+                                        <CancelButton />
+                                    </button>
+                                    <button 
+                                        title="Delete"
+                                        type="button"
+                                        className="node-attribute-button delete"
+                                        onClick={onDeleteClick}
+                                        >
+                                        <DeleteButton />
+                                    </button>
+                                </div>
                             </Form>
                         </div>
                     );
@@ -109,21 +140,30 @@ const NumberAttribute = memo((props) => {
             </Formik>
         ) : (
             <>
-                <div className="node-attribute-display">
-                    <div className="node-attribute-display-name">
+                <div className="node-attribute display">
+                    <div className="attribute-name display">
                         {name}
                     </div>
-                    <div className="node-attribute-display-number">
+                    <div className="attribute-number display">
                         {number}
                     </div>
-                    <button 
-                        className="node-attribute-button edit"
-                        onClick={onEditClick}
-                    >
-                        Edit
-                    </button>
+                    <div className="button-panel viewing">
+                        <button 
+                            title="Edit"
+                            className="node-attribute-button edit"
+                            onClick={onEditClick}
+                        >
+                            <EditButton />
+                        </button>
+                        <button 
+                            title="Coming soon!"
+                            className="node-attribute-button drag disabled"
+                            // no on Click, this should be a drag handle
+                        >
+                            <DragButton />
+                        </button>
+                    </div>
                 </div>
-          
             </>
         )}
     </>

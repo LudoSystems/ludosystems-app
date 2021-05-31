@@ -225,20 +225,9 @@ nav {
         background: none;
         border: none;
         padding: 0;
-        cursor: pointer;
     
         width: 75px;
     }
-    
-
-    &:hover {
-
-    }
-
-    &:active {
-
-    }
-
 
     #node-add-button {
         &:hover {
@@ -277,36 +266,10 @@ nav {
 /** UI Buttons **/
 
 .ui-button {
-    .interior-background {
-        fill: white;
-    }
-}
-
-.node-attribute-button-panel.viewing{
-    display: flex;
-
-    width: 70px;
-
-    .node-attribute-button {
-        display: none;
-    }
-}
-
-.node-attribute-button {
-    background: none;
-    border: none;
-    padding: 0;
     cursor: pointer;
 
-    width: 30px;
-    height: 30px;
-  
-    &.edit, &.confirm {
-        margin-right: 3px;
-    }
-
-    &.cancel {
-        margin-right: 10px;
+    .interior-background {
+        fill: white;
     }
 }
 
@@ -372,25 +335,22 @@ nav {
     }
 }
 
-.disabled {
+.disabled > svg {
     cursor: not-allowed;
+    fill: #BBB;
 
-    svg {
+    &:hover {
+        fill: #BBB;
+        
+        .interior-background {
+            fill: white;
+        }
+    }
+    &:active {
         fill: #BBB;
 
-        &:hover {
-            fill: #BBB;
-            
-            .interior-background {
-                fill: white;
-            }
-        }
-        &:active {
-            fill: #BBB;
-
-            .interior-background {
-                fill: white;
-            }
+        .interior-background {
+            fill: white;
         }
     }
 }

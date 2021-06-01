@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useHistory } from "react-router-dom";
+import { 
+    Formik, 
+    Form, 
+    Field, 
+    ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../services/AuthService";
+import { useCurrentUser } from "./CurrentUserContext.js"
 
 const initialValues = {
     username: "",
@@ -18,15 +24,17 @@ const loginSchema = Yup.object().shape({
 const Login = (props) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const history = useHistory();
+    const { updateCurrentUser } = useCurrentUser();
 
     const submitForm = (values) => {
         setLoading(true);
         setError("");
     
         AuthService.login(values.username, values.password).then(
-            () => {
-                props.history.push("/nodes");
-                window.location.reload();
+            (response) => {
+                updateCurrentUser();
+                history.push("/nodes");
             },
             (error) => {
                 setLoading(false);
@@ -45,9 +53,9 @@ const Login = (props) => {
                 const { errors, touched, isValid, dirty } = formik;
             
                 return (
-                    <div className="login-container">
-                        <h1>Log in</h1>
-                        <Form>
+                    <div className="page-container auth login">
+                        <h1>Login</h1>
+                        <Form className="content">
                             <div className="form-row">
                                 <label htmlFor="username">Username</label>
                                 <Field
@@ -56,7 +64,7 @@ const Login = (props) => {
                                     id="username"
                                     className={errors.username && touched.username ? "input-error" : null}
                                 />
-                                <ErrorMessage name="username" component="span" className="error" />
+                                <ErrorMessage name="username" component="div" className="error" />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="password">Password</label>
@@ -66,7 +74,7 @@ const Login = (props) => {
                                     id="password"
                                     className={errors.password && touched.password ? "input-error" : null}
                                 />
-                                <ErrorMessage name="password" component="span" className="error" />
+                                <ErrorMessage name="password" component="div" className="error" />
                             </div>
 
                             <button
@@ -77,7 +85,7 @@ const Login = (props) => {
                             {loading ? (
                                 <span className="spinner">Loading...</span>
                             ):(
-                                <span>Log In</span>
+                                <span>Login</span>
                             )}
                             </button>
                             {error && (

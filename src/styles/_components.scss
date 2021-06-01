@@ -12,29 +12,45 @@
 }
 
 @mixin button {
-    @include fonts.header-bold();
+    @include fonts.body-bold();
     @include unselectable();
-    
+
     display: inline-block;
     margin: 2px; 
-    
-    color: black;
-    text-decoration: none;
-    
-    padding: 1px 4px 1px 4px;
-    border: borders.$black;
 
-    background-color: white;
+    font-size: 0.8rem;
+
+    text-decoration: none;
+
+    border-radius: 15px;
+    border: borders.$blank;
+
+    background-color: colors.$blue;
 
     cursor: pointer;
 
+    
     &:hover {
-        background-color: colors.$blue;
-        color: white;
+        // border-color: colors.$active;
+        background-color: lighten(colors.$blue, 10%); 
+        
     }
 
     &:active {
+        // border-color: darken(colors.$blue, 20%);
+
         background-color: colors.$active;
-        color: white;
+        
     }
+
+    &:disabled {
+        background-color: #AAA;
+        cursor: not-allowed;
+        
+        &:hover {
+            background-color: #AAA;
+        }
+    }
+
+
 }

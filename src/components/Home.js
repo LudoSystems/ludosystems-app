@@ -1,12 +1,15 @@
-import AuthService from "../services/AuthService";
+import { useCurrentUser } from "./CurrentUserContext";
 
 const Home = () => {
-    const currentUser = AuthService.getCurrentUser();
+    const { currentUser } = useCurrentUser();
 
     return (
-        <>
-            <h3>Welcome{currentUser && (', ' + currentUser.username)}!</h3>
-        </>
+        <div class="page-container home">
+            <h1>Welcome{currentUser && (', ' + currentUser.username)}!</h1>
+            <div class="content">
+                
+            </div>
+        </div>
     );
 };
 

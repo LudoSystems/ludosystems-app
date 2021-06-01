@@ -7,11 +7,12 @@ import ReactFlow, {
     Background,
 } from 'react-flow-renderer';
 
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import NodeService from "../services/NodeService";
-import AuthService from "../services/AuthService";
+
+import { useCurrentUser } from "./CurrentUserContext";
 
 import LudoNode from './LudoNode';
 import '../styles/LudoNode.scss';
@@ -25,20 +26,17 @@ const nodeTypes = {
 };
 
 const Nodes = () => {
-    const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
     const [elements, setElements] = useState([]);
     const [warning, setWarning] = useState("");
+    const { updateCurrentUser } = useCurrentUser();
+    
+    const history = useHistory();
 
     const handleError = (error) => {
-        // if(error.response && error.response.status === 401) {
-            // I'm not entirely convinced if this is a good way to do this.
-    
-            // TODO check if this is a good way to do this.
-        
-        
-            // AuthService.logout();
-            // setCurrentUser(null);
-        // } else {
+        if(error.response && error.response.status === 401) {
+            updateCurrentUser();
+            history.push("/login");
+        } else {
             const _warning =
             (error.response &&
                 error.response.data &&
@@ -46,7 +44,7 @@ const Nodes = () => {
                 error.toString();
 
             setWarning(_warning);
-        // }
+        }
     };
     
     const createNode = useCallback((props) => {
@@ -177,49 +175,45 @@ const Nodes = () => {
 
     return ( 
         <>
-            {currentUser ? (              
-                    <div id="node-editor" >
-                    <div id="node-editor-controls">
-                        <button 
-                            id="node-add-button" 
-                            className="node-editor-control" 
-                            onClick={onAddClick}>
-                                <AddNodeButton />
-                        </button>
+            <div id="node-editor" >
+            <div id="node-editor-controls">
+                <button 
+                    id="node-add-button" 
+                    className="node-editor-control" 
+                    onClick={onAddClick}>
+                        <AddNodeButton />
+                </button>
+            </div>
+                {warning && (
+                    <div className="warning">
+                        {warning}
                     </div>
-                        {warning && (
-                            <div className="warning">
-                                {warning}
-                            </div>
-                        )}
-                      
-                        <ReactFlow
-                            elements={elements}
-                            onElementsRemove={onElementsRemove}
-                            onConnect={onConnect}
-                            onNodeDragStop={onNodeDragStop}
-                            snapToGrid={true}
-                            snapGrid={snapGrid}
-                            nodeTypes={nodeTypes}
-                            deleteKeyCode={46}
-                            minZoom={0.1}
-                            arrowHeadColor="black"
-                        >
-                            <Background
-                                variant="dots"
-                                gap={10}
-                                size={0.5}
-                            />
-                            <MiniMap
-                                nodeColor="white"
-                                nodeStrokeWidth={3}
-                            />
-                            <Controls />
-                        </ReactFlow>
-                    </div>
-            ) : (
-                <Redirect to='/login' />
-            )}
+                )}
+                
+                <ReactFlow
+                    elements={elements}
+                    onElementsRemove={onElementsRemove}
+                    onConnect={onConnect}
+                    onNodeDragStop={onNodeDragStop}
+                    snapToGrid={true}
+                    snapGrid={snapGrid}
+                    nodeTypes={nodeTypes}
+                    deleteKeyCode={46}
+                    minZoom={0.1}
+                    arrowHeadColor="black"
+                >
+                    <Background
+                        variant="dots"
+                        gap={10}
+                        size={0.5}
+                    />
+                    <MiniMap
+                        nodeColor="white"
+                        nodeStrokeWidth={3}
+                    />
+                    <Controls />
+                </ReactFlow>
+            </div>
         </>
     );
 };

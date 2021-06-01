@@ -34,7 +34,7 @@
 
     background-color: white;
 
-    &:hover > .ludo-node:not(.editing) {
+    &:not(.selected):hover > .ludo-node:not(.editing) {
         border-color: colors.$blue;
     }
   

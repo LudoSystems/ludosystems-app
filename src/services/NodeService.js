@@ -12,6 +12,10 @@ const NodeService = {
         return axios.get(API_NODES + "roots", { headers: authHeader() });
     },
 
+    exportJson: () => {
+        return axios.get(API_NODES + "export-json", { headers: authHeader(), responseType: 'blob' });
+    },
+
     getNode: (id) => {
         return axios.get(API_NODES + id, { headers: authHeader() });
     },

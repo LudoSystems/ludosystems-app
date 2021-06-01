@@ -18,6 +18,7 @@ import LudoNode from './LudoNode';
 import '../styles/LudoNode.scss';
 
 import { ReactComponent as AddNodeButton } from '../svg/button-add-node.svg';
+import { ReactComponent as ExportJsonButton } from '../svg/button-export-json.svg';
 
 const snapGrid = [10,10];
 
@@ -121,6 +122,26 @@ const Nodes = () => {
             (error) => handleError(error)
         );
     };
+
+    const onExportJsonClick = () => {
+        NodeService.exportJson().then(
+            (response) => {
+                console.log(response);
+
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+
+                const link = document.createElement('a');
+
+                // TODO this... seems bad and needs to be looked at further.
+                link.href = url;
+                link.setAttribute('download', 'ludo-nodes.json');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            },
+            (error) => handleError(error)
+        );
+    };
     
     useEffect(() => {
         NodeService.getRoots().then(
@@ -178,10 +199,18 @@ const Nodes = () => {
             <div id="node-editor" >
             <div id="node-editor-controls">
                 <button 
+                    title="Add Node"
                     id="node-add-button" 
                     className="node-editor-control" 
                     onClick={onAddClick}>
                         <AddNodeButton />
+                </button>
+                <button
+                    title="Export JSON"
+                    id="export-json-button"
+                    className="node-editor-control"
+                    onClick={onExportJsonClick}>
+                        <ExportJsonButton />
                 </button>
             </div>
                 {warning && (

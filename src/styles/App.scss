@@ -296,12 +296,20 @@ nav {
     z-index: 5;
     padding: 15px;    
 
+    display: flex;
+
+    flex-direction: column;
+
     .node-editor-control {
         background: none;
         border: none;
         padding: 0;
     
         width: 75px;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
     }
 
     #node-add-button {
@@ -331,6 +339,24 @@ nav {
 
                     .interior-background {
                         fill: lighten(colors.$green, 30%); 
+                    }
+                }
+            }
+        }
+    }
+
+    #export-json-button {
+        &:hover {
+            svg {
+                .interior-background {
+                    fill: colors.$blue;
+                }
+
+                .change-button {
+                    fill: darken(colors.$blue, 10%);
+
+                    .interior-background {
+                        fill: lighten(colors.$blue, 20%); 
                     }
                 }
             }

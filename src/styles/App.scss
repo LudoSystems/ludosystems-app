@@ -11,11 +11,7 @@ html {
 
 body {
     @include fonts.body-regular();
-    margin: 0;
-    position: relative;
-    min-height: 100vh;
-    max-height: 100vh;
-
+    
     background-color: colors.$background;
 
     color: white;
@@ -43,41 +39,56 @@ h1, h2, h3, h4 {
 }
 
 header {
-    height: 12vh;
+    padding: 5px 0;
 }
 
 main {
     @include widths.default();
 
-    height: 80vh;
+    height: 92vh;
 }
 
 footer {
     @include widths.default();
 
-    position: absolute;
-    
-    left: 0;
-    right: 0;
-    bottom: 0;
-    
-    height: 5vh;
+    height: 1vh;
+    padding: 0.5vh 0;
     
     display: flex;
     
     #footer-text {
         @include fonts.header-medium();
         flex-grow: 1;
+
+        font-size:1.0rem;
     }
 
     #footer-links {
         @include fonts.header-bold();
+
+        font-size: 0.8rem;
     }
 
+       
+    @media (max-width: widths.$break-max-screen-third) {
+        #footer-text {
+            font-size: 0.9rem;
+        }
 
-    @media (max-width: 500px) {
-        height: 5vh;
-        font-size: 0.8rem;
+        #footer-links {
+            font-size: 0.7rem;
+        }
+    }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        #footer-text {
+            font-size: 0.8rem;
+        }
+
+        #footer-links {
+            font-size: 0.6rem;
+        }
+
     }
 }
 
@@ -90,22 +101,38 @@ nav {
     align-items: center;
     justify-content: space-between;
     
-    height: 90px;
+    text-transform: lowercase;
+    white-space: nowrap;
 
     .nav-menu {
-        flex-grow: 1;
-    }
-
-    @media (max-width: widths.$break-point-max) {
-        padding-top: 15px;
-    }
-
-    @media (max-width: 500px) {
-        padding-top: 10px;
-
-        .nav-link {
+        border-left: borders.$green;
+        margin-right: 15px;
         
+        flex-grow: 1;
+        
+        font-size: 1.2rem;
+    }
+
+    .user-menu {
+        font-size: 0.8rem;
+    }
+    
+    @media (max-width: widths.$break-max-screen-third) {
+        .nav-menu {
             font-size: 1.0rem;
+        }
+        .user-menu {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        .nav-menu {
+            font-size: 0.8rem;
+        }
+
+        .user-menu {
+            font-size: 0.6rem;
         }
     }
 
@@ -123,13 +150,12 @@ nav {
     @include fonts.header-bold();   
 
     text-decoration: none;
-    font-size: 1.2rem;
     color: white;
 
-    margin-right: 10px;
-    
     padding: 5px;
-    border: borders.$blank;
+    
+
+    margin-left: 5px;
     
     &:hover {
         color: colors.$blue;
@@ -138,16 +164,12 @@ nav {
     &:active {
         color: colors.$active;
     }
+
 }
 
 #site-logo {
-    margin-right: 20px;
-
-    @media (max-width: widths.$break-point-max) {
-        position: fixed;
-        top: 5px;
-        width: 30%;
-    }
+    margin-right: 10px;
+    width: 200px;
 
     svg {
         display: block;
@@ -183,6 +205,10 @@ nav {
                 fill: colors.$active-darker;
             }
         }
+    }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        width: 120px;
     }
 }
 
@@ -261,10 +287,8 @@ nav {
 
 #node-editor {
     height: 100%;
-    border: borders.$black;
-
-    position: relative;
-    background-color: white;
+    
+    background-color: #EFEFEF;
 }
 
 .warning {
@@ -291,6 +315,13 @@ nav {
     }
 }
 
+.react-flow__minimap {
+    @media (max-width: widths.$break-max-phone-vertical) {
+        width: 150px;
+        height: 100px;
+    }
+}
+
 #node-editor-controls {
     position: absolute;
     z-index: 5;
@@ -309,6 +340,10 @@ nav {
 
         &:not(:first-child) {
             margin-top: 20px;
+        }
+
+        @media (max-width: widths.$break-max-phone-vertical) {
+            width: 50px;
         }
     }
 

@@ -3,6 +3,9 @@ $break-max-screen-third: 750px;
 
 $content-default: 750px;
 
+$frame-v: 30px;
+$frame-h: 15px;
+
 /** Other mixins **/
 @mixin centered($content-width) {
     width: $content-width;

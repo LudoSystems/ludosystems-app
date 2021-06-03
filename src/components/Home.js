@@ -4,10 +4,10 @@ const Home = () => {
     const { currentUser } = useCurrentUser();
 
     return (
-        <div class="page-container home">
+        <div className="page-container home">
             <h1>Welcome{currentUser && (', ' + currentUser.username)}!</h1>
-            <div class="content">
-                
+            <div className="content">
+
             </div>
         </div>
     );

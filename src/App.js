@@ -26,6 +26,7 @@ const App = () => {
                     <NavBar />
                 </header>
                 <main>
+                    <div className="frame left" />
                     <Switch>
                         <Route exact path={["/", "/home"]} >
                             <Home />
@@ -46,12 +47,15 @@ const App = () => {
                             <NotFound />
                         </Route>
                     </Switch>
+                    <div className="frame right" />
                 </main>
                 <footer>
                     <div id="footer-text">
                         A work in progress by <a href="http://abbieschenk.com">Abbie Schenk</a>
                     </div>
                     <div id="footer-links">
+                        <a href="/">Newsletter</a>
+                        <a href="/">Twitter</a>
                         <a href="https://github.com/Ludobaum">GitHub</a>
                     </div>
                 </footer>

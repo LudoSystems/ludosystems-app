@@ -29,13 +29,13 @@ const nodeTypes = {
 const Nodes = () => {
     const [elements, setElements] = useState([]);
     const [warning, setWarning] = useState("");
-    const { updateCurrentUser } = useCurrentUser();
+    const { logout } = useCurrentUser();
     
     const history = useHistory();
 
     const handleError = (error) => {
         if(error.response && error.response.status === 401) {
-            updateCurrentUser();
+            logout();
             history.push("/login");
         } else {
             const _warning =
@@ -84,6 +84,10 @@ const Nodes = () => {
             }
         )
     };
+
+    const onNodeDragStart = (event, node) => {
+        event.preventDefault();
+    }
 
     const onNodeDragStop = (event, node) => {
         NodeService.updateNodePosition(node.id, node.position.x, node.position.y).then(
@@ -223,6 +227,7 @@ const Nodes = () => {
                     elements={elements}
                     onElementsRemove={onElementsRemove}
                     onConnect={onConnect}
+                    onNodeDragStart={onNodeDragStart}
                     onNodeDragStop={onNodeDragStop}
                     snapToGrid={true}
                     snapGrid={snapGrid}

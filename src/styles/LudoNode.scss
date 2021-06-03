@@ -4,8 +4,6 @@
 
 .react-flow__handle  {
     background-color: black;
-    // margin-top: -1.5px;
-    // margin-bottom: -1.5px;
     margin-top: 1.5px;
     margin-bottom: 1.5px;
 
@@ -13,14 +11,6 @@
     height: 9px;
 }
 
-.react-flow__handle.connectable {
-    // cursor: grab;
-}
-
-.react-flow__handle-connecting {
-    // background-color: colors.$green;
-    // cursor: cell;
-}
 
 .react-flow__handle-valid {
     background-color: colors.$green;
@@ -135,9 +125,7 @@
             label {
                 font-size: 0.8rem;
                 display: block;
-            }
-
-          
+            } 
         }
 
         input, textarea {

@@ -4,6 +4,8 @@
 @use './_colors';
 @use './_widths';
 
+$frame-z: 50;
+
 /** Default Tags **/
 html {
     scroll-behavior: smooth;
@@ -39,20 +41,59 @@ h1, h2, h3, h4 {
 }
 
 header {
+    @include components.unselectable();
+
+    position: fixed;
+    background-color: colors.$background;
+    z-index: $frame-z;
+
+    height: widths.$frame-v;
+    width: calc(100% - #{widths.$frame-h * 2});
+
+    left: widths.$frame-h;
+
     padding: 5px 0;
 }
 
-main {
-    @include widths.default();
+.frame {
+    position: fixed;
+    width: widths.$frame-h;
 
-    height: 92vh;
+    height: 100%;
+    
+    top: 0;
+
+    z-index: $frame-z;
+
+    background-color: colors.$background;
+    
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        right: 0;
+    }
+}
+
+main {
+    height: 100vh;
 }
 
 footer {
-    @include widths.default();
+    @include components.unselectable();
 
-    height: 1vh;
-    padding: 0.5vh 0;
+    position: fixed;
+    
+    z-index: $frame-z;
+    background-color: colors.$background;
+    bottom: 0px;
+
+    width: calc(100% - #{widths.$frame-h * 2});
+
+    left: widths.$frame-h;
+
+    height: widths.$frame-v;
     
     display: flex;
     
@@ -67,6 +108,10 @@ footer {
         @include fonts.header-bold();
 
         font-size: 0.8rem;
+
+        a {
+            margin-left: 10px;
+        }
     }
 
        
@@ -95,8 +140,6 @@ footer {
 /** Nav **/
 
 nav {
-    @include widths.default();
-  
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -316,14 +359,26 @@ nav {
 }
 
 .react-flow__minimap {
+    margin-right: widths.$frame-h;
+    margin-bottom: widths.$frame-v;
+    
     @media (max-width: widths.$break-max-phone-vertical) {
         width: 150px;
         height: 100px;
     }
 }
 
+.react-flow__controls {
+    margin-left: widths.$frame-h;
+    margin-bottom: widths.$frame-v;
+}
+
 #node-editor-controls {
     position: absolute;
+
+    margin-top: widths.$frame-v;
+    margin-left: widths.$frame-h;
+
     z-index: 5;
     padding: 15px;    
 
@@ -336,7 +391,7 @@ nav {
         border: none;
         padding: 0;
     
-        width: 75px;
+        width: 60px;
 
         &:not(:first-child) {
             margin-top: 20px;

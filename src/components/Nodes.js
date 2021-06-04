@@ -130,10 +130,8 @@ const Nodes = () => {
     const onExportJsonClick = () => {
         NodeService.exportJson().then(
             (response) => {
-                console.log(response);
-
                 const url = window.URL.createObjectURL(new Blob([response.data]));
-
+                
                 const link = document.createElement('a');
 
                 // TODO this... seems bad and needs to be looked at further.
@@ -148,51 +146,44 @@ const Nodes = () => {
     };
     
     useEffect(() => {
-        NodeService.getRoots().then(
+        NodeService.getNodes().then(
             (response) => {
-                const _elements = [];
-
-                const createFlowElements = (node, elements, edges) => {
-
-                    elements.push(createNode({
-                        id: node.id,
-                        posX: node.posX,
-                        posY: node.posY,
-                        attributes: node.attributes,
-    
-                    }));
-
-                    for(const child of node.children) {
-                        let childId;
-
-                        if(isNaN(child)){
-                            createFlowElements(child, elements, edges);
-                            
-                            childId = child.id;
-                        } else {
-                            childId = child;
-                        }
-                        
-                        edges.push({
-                            id: 'e' + node.id + '-' + childId,
-                            source: '' + node.id,
-                            target: '' + childId,
-                            arrowHeadType: 'arrowclosed',
-                        });
-                    }
-                };
-
+                const elements = [];
+                const edges = [];
+                
                 if(response.data._embedded) {
                     for (const node of response.data._embedded.nodes) {
-                        const edges = [];
+
+                        elements.push(createNode({
+                            id: node.id,
+                            posX: node.posX,
+                            posY: node.posY,
+                            attributes: node.attributes,
+        
+                        }));
+
+                        for(const child of node.children) {
+                            let childId;
     
-                        createFlowElements(node, _elements, edges);
-    
-                        _elements.push(...edges);
+                            if(isNaN(child)){
+                                childId = child.id;
+                            } else {
+                                childId = child;
+                            }
+                            
+                            edges.push({
+                                id: 'e' + node.id + '-' + childId,
+                                source: '' + node.id,
+                                target: '' + childId,
+                                arrowHeadType: 'arrowclosed',
+                            });
+                        }
                     }
                 }
-               
-                setElements(_elements);
+                
+                elements.push(...edges);
+                
+                setElements(elements);
             },
             (error) => handleError(error)
         );

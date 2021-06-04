@@ -44,7 +44,7 @@ const NavBar = () => {
         ) : (
             <div className="user-menu">
                 <Link to={"/login"} className="nav-link">
-                    Login
+                    Log In
                 </Link>
                 <Link to={"/register"} className="nav-link">
                     Register

@@ -54,7 +54,7 @@ const Login = (props) => {
             
                 return (
                     <div className="page-container auth login">
-                        <h1>Login</h1>
+                        <h1>Log In</h1>
                         <Form className="content">
                             <div className="form-row">
                                 <label htmlFor="username">Username</label>
@@ -85,7 +85,7 @@ const Login = (props) => {
                             {loading ? (
                                 <span className="spinner">Loading...</span>
                             ):(
-                                <span>Login</span>
+                                <span>Log In</span>
                             )}
                             </button>
                             {error && (

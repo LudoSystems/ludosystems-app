@@ -262,6 +262,13 @@ nav {
     flex-direction: column;
     align-items: center;
 
+    background-color: colors.$background-opaque;
+
+    $padding-top: widths.$frame-v + 50px;
+
+    padding-top: $padding-top;
+    height: calc(100% - #{$padding-top});
+
     h1 {
         margin-bottom: 30px;
     }

@@ -115,6 +115,15 @@
         width: 475px;
     }
 
+    .attribute-text.display {
+        white-space: pre-wrap;
+    }
+
+    .attribute-text.editor > textarea {
+        resize: vertical;
+    }
+
+
     &.editor {
         padding-top: 0px;
 

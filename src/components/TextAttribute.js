@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -20,6 +20,23 @@ const textAttributeSchema = Yup.object().shape({
         .max(4096, "Text can be max 4096 characters."),
 });
 
+// function useTextEditorWithRefCallback() {
+//     // const ref = useRef(null);
+
+//     const setRef = useCallback(textEditor => {
+//         console.log("====Callback: ref.current====");
+//         // console.log(ref.current);
+        
+//         console.log("====Callback: textEditor====");
+//         console.log(textEditor);
+
+//         // ref.current = textEditor;
+
+//     }, []);
+
+//     return [setRef];
+// }
+
 const TextAttribute = memo((props) => {
     const [editing, setEditing] = useState(false);
 
@@ -32,12 +49,17 @@ const TextAttribute = memo((props) => {
         text: text,
     });
 
+    const onTextEditorChange = (textEditor) => {
+        if(textEditor != null) {
+            textEditor.style.height = "";
+            textEditor.style.height = textEditor.scrollHeight + "px";
+        }
+    };
+
     const submitForm = (values) => {
         setEditing(false);
         setName(values.name);
         setText(values.text);
-
-        console.log("Updated form");
 
         AttributeService.updateTextAttribute(values.id, values.name, values.text).then(
             (response) => {
@@ -109,6 +131,7 @@ const TextAttribute = memo((props) => {
                                         as="textarea"
                                         name="text"
                                         id="text"
+                                        innerRef={onTextEditorChange}
                                         className={errors.text && touched.text ? "input-error" : null}
                                     />
                                     <ErrorMessage name="text" component="span" className="error" />

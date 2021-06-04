@@ -235,6 +235,7 @@ const Nodes = () => {
                     deleteKeyCode={46}
                     minZoom={0.1}
                     arrowHeadColor="black"
+                    selectNodesOnDrag={false}
                 >
                     <Background
                         variant="dots"

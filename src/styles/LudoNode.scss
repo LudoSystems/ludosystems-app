@@ -11,6 +11,10 @@
     height: 9px;
 }
 
+.react-flow__handle-connecting {
+    background-color: colors.$red;
+}
+
 
 .react-flow__handle-valid {
     background-color: colors.$green;

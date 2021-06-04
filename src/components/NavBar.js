@@ -1,4 +1,4 @@
-import React, { useEffect }from "react";
+import React from "react";
 
 import { useCurrentUser } from "./CurrentUserContext.js"
 
@@ -7,11 +7,7 @@ import { ReactComponent as Logo } from '../svg/site-logo.svg';
 
 
 const NavBar = () => {
-    const { currentUser, updateCurrentUser, logout } = useCurrentUser();
-
-    useEffect(() => {
-        updateCurrentUser();
-    }, []);
+    const { currentUser, logout } = useCurrentUser();
 
     return (
         <nav>

@@ -351,7 +351,9 @@ nav {
     right: 5%;
 
     padding: 10px;
+    margin-top: widths.$frame-v + 10px;
 
+    border: borders.$black;
     border-left: borders.$black;
     border-right: borders.$black;
     border-bottom: borders.$black;
@@ -359,9 +361,8 @@ nav {
     background-color: red;
     color: white;
 
-    &:before {
-        @include fonts.body-bold();
-        content: "Warning: ";
+    div {
+        margin: 10px;
     }
 }
 

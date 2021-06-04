@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -19,23 +19,6 @@ const textAttributeSchema = Yup.object().shape({
     text: Yup.string()
         .max(4096, "Text can be max 4096 characters."),
 });
-
-// function useTextEditorWithRefCallback() {
-//     // const ref = useRef(null);
-
-//     const setRef = useCallback(textEditor => {
-//         console.log("====Callback: ref.current====");
-//         // console.log(ref.current);
-        
-//         console.log("====Callback: textEditor====");
-//         console.log(textEditor);
-
-//         // ref.current = textEditor;
-
-//     }, []);
-
-//     return [setRef];
-// }
 
 const TextAttribute = memo((props) => {
     const [editing, setEditing] = useState(false);

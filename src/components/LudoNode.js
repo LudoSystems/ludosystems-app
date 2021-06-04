@@ -38,7 +38,7 @@ const LudoNode = memo(({ data }) => {
     };
 
     const isValidConnection = (c) => {
-        return c.source != c.target;
+        return c.source !== c.target;
     };
 
     const deleteAttribute = (id) => {

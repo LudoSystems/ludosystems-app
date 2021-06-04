@@ -33,7 +33,7 @@ const Nodes = () => {
     
     const history = useHistory();
 
-    const handleError = (error) => {
+    const handleError = useCallback((error) => {
         if(error.response && error.response.status === 401) {
             logout();
             history.push("/login");
@@ -46,7 +46,7 @@ const Nodes = () => {
 
             setWarning(_warning);
         }
-    };
+    }, [history, logout]);
     
     const createNode = useCallback((props) => {
         return {
@@ -60,7 +60,7 @@ const Nodes = () => {
             type: 'ludoNode',
             position: { x: props.posX, y: props.posY }
         }
-    }, []);
+    }, [handleError]);
 
     const onElementsRemove = (elementsToRemove) => {
         const nodes = elementsToRemove.filter(element => !element.source);
@@ -187,7 +187,7 @@ const Nodes = () => {
             },
             (error) => handleError(error)
         );
-    }, [createNode]);
+    }, [createNode, handleError]);
 
     return ( 
         <>
@@ -210,7 +210,13 @@ const Nodes = () => {
             </div>
                 {warning && (
                     <div className="warning">
-                        {warning}
+                        <h3>Something went very wrong.</h3>
+                        <div>
+                            {warning}
+                        </div>
+                        <div>
+                            Your last few changes may not have saved. Try refreshing, or contact the site owner.
+                        </div>
                     </div>
                 )}
                 

@@ -4,11 +4,26 @@
 
 .react-flow__handle  {
     background-color: black;
-    margin-top: 1.5px;
-    margin-bottom: 1.5px;
 
-    width: 9px;
-    height: 9px;
+    border-radius: 0;
+    border: none;
+
+    width: 100%;
+    height: 8px;
+
+    &:hover {
+        background-color: colors.$blue;
+    }
+}
+
+$handle-offset: -9px;
+
+.react-flow__handle-top {
+    top: $handle-offset;
+}
+
+.react-flow__handle-bottom {
+    bottom: $handle-offset;
 }
 
 .react-flow__handle-connecting {
@@ -18,6 +33,7 @@
 
 .react-flow__handle-valid {
     background-color: colors.$green;
+    border-color: colors.$green;
     cursor: cell;
 }
 
@@ -28,7 +44,7 @@
 
     background-color: white;
 
-    &:not(.selected):hover > .ludo-node:not(.editing) {
+    &:not(.selected) > .ludo-node:not(.editing):hover {
         border-color: colors.$blue;
     }
   

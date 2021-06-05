@@ -268,7 +268,6 @@ const Nodes = () => {
                     snapToGrid={true}
                     snapGrid={snapGrid}
                     nodeTypes={nodeTypes}
-                    deleteKeyCode={46}
                     minZoom={0.1}
                     arrowHeadColor="black"
                     selectNodesOnDrag={false}

@@ -1,6 +1,7 @@
 @use "./_fonts";
 @use "./_borders";
 @use "./_colors";
+@use "./_components";
 
 .react-flow__handle  {
     background-color: black;
@@ -62,6 +63,11 @@ $handle-offset: -9px;
     .button-panel.node {
         display: flex;
         justify-content: flex-end;
+        
+        border-bottom: borders.$subtle;
+        
+        padding-bottom: 12px;
+        margin-bottom: 6px;
     }
 
     &.editing {
@@ -111,6 +117,10 @@ $handle-offset: -9px;
         .button-panel.viewing {
             display: flex;
         }
+
+        .node-attribute.empty {
+            cursor: default;
+        }
     }
 }
 
@@ -119,20 +129,25 @@ $handle-offset: -9px;
     justify-content: flex-start;
 
     padding-top: 15px;
-
     min-height: 35px;
+    
+    $title-width: 100px;
+    $value-width: 450px;
+
+    min-width: $title-width + $value-width;
+
 
     .attribute-title.display, .attribute-title.editor > input {
         @include fonts.body-bold();
     }
 
     .attribute-title, .attribute-title.editor > input {
-        width: 100px;
+        width: $title-width;
     }
 
     .attribute-text, .attribute-text.editor > textarea,
     .attribute-number {
-        width: 475px;
+        width: $value-width;
         max-width: 100%;
     }
 
@@ -179,10 +194,11 @@ $handle-offset: -9px;
     }
 
     &.empty {
+        @include components.unselectable();
+        
         justify-content: center;
-        color: #888;
+        color: colors.$disabled;
 
-        width: 200px;
         padding-bottom: 20px;
     }
 

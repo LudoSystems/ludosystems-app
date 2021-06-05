@@ -14,9 +14,11 @@ const numberAttributeSchema = Yup.object().shape({
     // TODO: include a character counter.
     title: Yup.string()
         .required("Required")
-        .max(255, "Title can be max 255 characters."),
+        .max(255, "Title can be max 255 characters"),
     number: Yup.number()
-        .integer()
+        .integer("Must be an integer")
+        .lessThan(2147483647, "Must be below 2,147,483,647")
+        .moreThan(-2147483647, "Must be above -2,147,483,647")
         .nullable(true),
 });
 
@@ -89,7 +91,7 @@ const NumberAttribute = memo((props) => {
                 onSubmit={submitForm}
             >
                 {(formik) => {
-                    const { errors, touched, isValid, dirty } = formik;
+                    const { errors, touched, isValid, dirty, setFieldValue } = formik;
     
                     return (
                         <div className="node-attribute editor number-attribute">
@@ -110,6 +112,14 @@ const NumberAttribute = memo((props) => {
                                         type="number"
                                         name="number"
                                         id="number"
+                                        onChange={e => {
+                                            e.preventDefault();
+                                            const { value } = e.target;
+                                            const regex = /^[-+]?\d+$/;
+                                            if (regex.test(value.toString())) {
+                                              setFieldValue("number", value);
+                                            }
+                                        }}
                                         className={errors.number && touched.number ? "input-error" : null}
                                     />
                                     <ErrorMessage name="number" component="span" className="error" />
@@ -165,7 +175,6 @@ const NumberAttribute = memo((props) => {
                         <button 
                             title="Coming soon!"
                             className="node-attribute-button drag disabled"
-                            // no on Click, this should be a drag handle
                         >
                             <DragButton />
                         </button>

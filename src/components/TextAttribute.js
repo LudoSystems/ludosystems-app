@@ -14,10 +14,10 @@ const textAttributeSchema = Yup.object().shape({
     // TODO: include a character counter.
     title: Yup.string()
         .required("Required")
-        .max(255, "Title can be max 255 characters."),
+        .max(255, "Title can be max 255 characters"),
     // TODO: include a character counter.
     text: Yup.string()
-        .max(4096, "Text can be max 4096 characters."),
+        .max(4096, "Text can be max 4096 characters"),
 });
 
 const TextAttribute = memo((props) => {

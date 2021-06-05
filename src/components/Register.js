@@ -49,7 +49,7 @@ const Register = (props) => {
             {success ? (
                 <div className="content">
                     <p>
-                        Successfully created a new user.
+                        Your account was created!
                     </p>
                     <div>
                         <Link to={"/login"}>

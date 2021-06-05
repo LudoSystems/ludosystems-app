@@ -266,14 +266,30 @@ nav {
 
     background-color: colors.$background-opaque;
 
-    $padding-top: widths.$frame-v + 50px;
+    $padding: widths.$frame-v + 50px;   
 
-    padding-top: $padding-top;
-    height: calc(100% - #{$padding-top});
+    padding-top: $padding;
+    padding-bottom: $padding;
 
+    min-height: calc(100% - #{$padding} * 2);
+    
     h1 {
         margin-bottom: 30px;
     }
+
+    @media (max-width: widths.$break-max-screen-third) {
+        $padding-bk: widths.$frame-v;
+
+        padding-top: $padding-bk;
+        padding-bottom: $padding-bk;
+
+        height: calc(100% - #{$padding-bk} * 2);
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+    } 
 
     .content {
         max-width: 80%;

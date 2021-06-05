@@ -52,7 +52,7 @@ const Register = (props) => {
     };
 
     return (
-        <> {currentUser &&
+        <> {!currentUser &&
             <div className="page-container auth register">  
                 <h1>Register</h1>
 

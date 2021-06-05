@@ -90,7 +90,7 @@ const LudoNode = memo(({ data }) => {
                                 return <TextAttribute 
                                             key={data.nodeId + '_' + attribute.id} 
                                             attributeId={attribute.id}
-                                            name={attribute.name} 
+                                            title={attribute.title} 
                                             text={attribute.text}
                                             handleError={data.handleError}
                                             deleteAttribute={deleteAttribute}
@@ -99,7 +99,7 @@ const LudoNode = memo(({ data }) => {
                                 return <NumberAttribute 
                                             key={data.nodeId + '_' + attribute.id} 
                                             attributeId={attribute.id}
-                                            name={attribute.name} 
+                                            title={attribute.title} 
                                             number={attribute.number}
                                             handleError={data.handleError}
                                             deleteAttribute={deleteAttribute}

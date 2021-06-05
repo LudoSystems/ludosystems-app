@@ -12,9 +12,9 @@ import AttributeService from "../services/AttributeService";
 
 const numberAttributeSchema = Yup.object().shape({
     // TODO: include a character counter.
-    name: Yup.string()
+    title: Yup.string()
         .required("Required")
-        .max(255, "Name can be max 255 characters."),
+        .max(255, "Title can be max 255 characters."),
     number: Yup.number()
         .integer()
         .nullable(true),
@@ -23,27 +23,34 @@ const numberAttributeSchema = Yup.object().shape({
 const NumberAttribute = memo((props) => {
     const [editing, setEditing] = useState(false);
 
-    const [name, setName] = useState(props.name);
+    const [title, setTitle] = useState(props.title);
     const [number, setNumber] = useState(props.number);
 
     const [initialValues, setInitialValues] =  useState({
         id: props.attributeId,
-        name: name,
+        title: title,
         number: number,
     });
 
     const submitForm = (values) => {
         setEditing(false);
 
-        AttributeService.updateNumberAttribute(values.id, values.name, values.number).then(
-            (response) => {
-                console.log(response);
+        setTitle(values.title);
+        setNumber(values.number);
 
-                setName(response.data.name);
-                setNumber(response.data.number);
+        AttributeService.updateNumberAttribute(values.id, values.title, values.number).then(
+            (response) => {
+                if(values.title !== response.data.title) {
+                    setTitle(response.data.title);
+                }
+
+                if(values.number !== response.data.number) {
+                    setNumber(response.data.number);
+                }
+
                 setInitialValues(prevValue => ({
                     id: prevValue.id,
-                    name: response.data.name,
+                    title: response.data.title,
                     number: response.data.number,
                 }));
             },
@@ -87,15 +94,15 @@ const NumberAttribute = memo((props) => {
                     return (
                         <div className="node-attribute editor number-attribute">
                             <Form>
-                                <div className="attribute-name editor">
-                                    <label htmlFor="name">Name</label>
+                                <div className="attribute-title editor">
+                                    <label htmlFor="title">Title</label>
                                     <Field
                                         type="text"
-                                        name="name"
-                                        id="name"
-                                        className={errors.name && touched.name ? "input-error" : null}
+                                        name="title"
+                                        id="title"
+                                        className={errors.title && touched.title ? "input-error" : null}
                                     />
-                                    <ErrorMessage name="name" component="span" className="error" />
+                                    <ErrorMessage name="title" component="span" className="error" />
                                 </div>
                                 <div className="attribute-number editor">
                                     <label htmlFor="number">Number</label>
@@ -141,8 +148,8 @@ const NumberAttribute = memo((props) => {
         ) : (
             <>
                 <div className="node-attribute display">
-                    <div className="attribute-name display">
-                        {name}
+                    <div className="attribute-title display">
+                        {title}
                     </div>
                     <div className="attribute-number display">
                         {number}

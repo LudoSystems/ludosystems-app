@@ -122,20 +122,25 @@ $handle-offset: -9px;
 
     min-height: 35px;
 
-    .attribute-name.display, .attribute-name.editor > input {
+    .attribute-title.display, .attribute-title.editor > input {
         @include fonts.body-bold();
     }
 
-    .attribute-name, .attribute-name.editor > input {
+    .attribute-title, .attribute-title.editor > input {
         width: 100px;
     }
 
     .attribute-text, .attribute-text.editor > textarea,
     .attribute-number {
         width: 475px;
+        max-width: 100%;
     }
 
-    .attribute-text.display {
+    .attribute-title, .attribute-text {
+        word-break: break-word;
+    }
+    
+    .attribute-text {
         white-space: pre-wrap;
     }
 

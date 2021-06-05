@@ -12,9 +12,9 @@ import AttributeService from "../services/AttributeService";
 
 const textAttributeSchema = Yup.object().shape({
     // TODO: include a character counter.
-    name: Yup.string()
+    title: Yup.string()
         .required("Required")
-        .max(255, "Name can be max 255 characters."),
+        .max(255, "Title can be max 255 characters."),
     // TODO: include a character counter.
     text: Yup.string()
         .max(4096, "Text can be max 4096 characters."),
@@ -23,12 +23,12 @@ const textAttributeSchema = Yup.object().shape({
 const TextAttribute = memo((props) => {
     const [editing, setEditing] = useState(false);
 
-    const [name, setName] = useState(props.name);
+    const [title, setTitle] = useState(props.title);
     const [text, setText] = useState(props.text);
 
     const [initialValues, setInitialValues] =  useState({
         id: props.attributeId,
-        name: name,
+        title: title,
         text: text,
     });
 
@@ -41,13 +41,13 @@ const TextAttribute = memo((props) => {
 
     const submitForm = (values) => {
         setEditing(false);
-        setName(values.name);
+        setTitle(values.title);
         setText(values.text);
 
-        AttributeService.updateTextAttribute(values.id, values.name, values.text).then(
+        AttributeService.updateTextAttribute(values.id, values.title, values.text).then(
             (response) => {
-                if(values.name !== response.data.name) {
-                    setName(response.data.name);
+                if(values.title !== response.data.title) {
+                    setTitle(response.data.title);
                 }
                 if(values.text !== response.data.text) {
                     setText(response.data.text);
@@ -55,7 +55,7 @@ const TextAttribute = memo((props) => {
 
                 setInitialValues(prevValue => ({
                     id: prevValue.id,
-                    name: response.data.name,
+                    title: response.data.title,
                     text: response.data.text,
                 }));
             },
@@ -98,15 +98,15 @@ const TextAttribute = memo((props) => {
                     return (
                         <div className="node-attribute editor text-attribute-editor">
                             <Form>
-                                <div className="attribute-name editor">
-                                    <label htmlFor="name">Name</label>
+                                <div className="attribute-title editor">
+                                    <label htmlFor="title">Title</label>
                                     <Field
                                         type="text"
-                                        name="name"
-                                        id="name"
-                                        className={errors.name && touched.name ? "input-error" : null}
+                                        name="title"
+                                        id="title"
+                                        className={errors.title && touched.title ? "input-error" : null}
                                     />
-                                    <ErrorMessage name="name" component="span" className="error" />
+                                    <ErrorMessage name="title" component="span" className="error" />
                                 </div>
                                 <div className="attribute-text editor">
                                     <label htmlFor="text">Text</label>
@@ -153,8 +153,8 @@ const TextAttribute = memo((props) => {
         ) : (
             <>
                 <div className="node-attribute display">
-                    <div className="attribute-name display">
-                        {name}
+                    <div className="attribute-title display">
+                        {title}
                     </div>
                     <div className="attribute-text display">
                         {text}

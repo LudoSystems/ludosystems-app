@@ -232,20 +232,30 @@ const Nodes = () => {
         <>
             <div id="node-editor" >
             <div id="node-editor-controls">
-                <button 
-                    title="Add Node"
-                    id="node-add-button" 
-                    className="node-editor-control" 
-                    onClick={onAddClick}>
-                        <AddNodeButton />
-                </button>
-                <button
-                    title="Export JSON"
-                    id="export-json-button"
-                    className="node-editor-control"
-                    onClick={onExportJsonClick}>
-                        <ExportJsonButton />
-                </button>
+                <div className="control-group">
+                    <div className="label">
+                        Add
+                    </div>
+                    <button 
+                        title="Add Node"
+                        id="node-add-button" 
+                        className="node-editor-control" 
+                        onClick={onAddClick}>
+                            <AddNodeButton />
+                    </button>
+                </div>
+                <div className="control-group">
+                    <div className="label">
+                        Export
+                    </div>
+                    <button
+                        title="Export JSON"
+                        id="export-json-button"
+                        className="node-editor-control"
+                        onClick={onExportJsonClick}>
+                            <ExportJsonButton />
+                    </button>
+                </div>
             </div>
                 {warning && (
                     <div className="warning">

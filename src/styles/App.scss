@@ -394,6 +394,42 @@ nav {
 
     flex-direction: column;
 
+    .control-group {
+        position: relative;
+        margin-top: 10px;
+        padding: 15px;
+        border: borders.$black;
+        
+        &:first-child {
+            border-top-right-radius: 25px;
+        }
+
+        &:last-child {
+            border-bottom-right-radius: 25px;
+        }
+        
+
+
+        .label {
+            @include fonts.header-medium();
+            @include components.unselectable();
+
+            cursor: default;
+
+            font-size: 0.8rem;
+
+            position: absolute;
+            top: 0px;
+            left: 0px;
+
+            padding-left: 2px;
+            padding-right: 6px;
+            padding-bottom: 2px;
+
+            background-color: black;
+        }
+    }
+
     .node-editor-control {
         background: none;
         border: none;

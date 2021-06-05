@@ -5,6 +5,10 @@ import {
     Route
 } from "react-router-dom";
 
+import  { 
+    ReactFlowProvider
+} from 'react-flow-renderer';
+
 import './styles/App.scss';
 
 import { CurrentUserProvider } from "./components/CurrentUserContext";
@@ -41,7 +45,9 @@ const App = () => {
                             <Profile />
                         </Route>
                         <Route exact path="/nodes">
-                            <Nodes />
+                            <ReactFlowProvider>
+                                <Nodes />
+                            </ReactFlowProvider>
                         </Route>
                         <Route>
                             <NotFound />

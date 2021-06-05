@@ -5,6 +5,7 @@ import ReactFlow, {
     MiniMap, 
     Controls,
     Background,
+    // useStoreState - see comment in onNodeDragStop
 } from 'react-flow-renderer';
 
 import { useHistory } from "react-router-dom";
@@ -29,6 +30,9 @@ const nodeTypes = {
 const Nodes = () => {
     const [elements, setElements] = useState([]);
     const [warning, setWarning] = useState("");
+
+    // const selectedElements = useStoreState(actions => actions.selectedElements); - see comment in onNodeDragStop
+
     const { logout } = useCurrentUser();
     
     const history = useHistory();
@@ -82,20 +86,55 @@ const Nodes = () => {
               })).catch(errors => {
                 handleError(errors)
             }
-        )
+        );
     };
+
+    const onPositionUpdate = useCallback((nodes) => {
+        const requests = [];
+    
+        for(const node of nodes) {
+            requests.push(NodeService.updateNodePosition(node.id, node.position.x, node.position.y));
+        }
+    
+        axios.all(requests).then(
+            axios.spread((...responses) => {
+                    // Nothing needs to happen.
+                })).catch(errors => {
+                    handleError(errors)
+                }
+        );
+
+    }, [handleError]);
 
     const onNodeDragStart = (event, node) => {
         event.preventDefault();
     }
 
+    const onSelectionDragStop = (event, nodes) => {
+        onPositionUpdate(nodes);
+    }
+
     const onNodeDragStop = (event, node) => {
-        NodeService.updateNodePosition(node.id, node.position.x, node.position.y).then(
-            (response) => {
-                // Nothing needs to happen
-            },
-            (error) => handleError(error)
-        )
+        const nodesToUpdate = [];
+
+        // TODO Haven't been able to find a way to make this work for mulitple nodes as 
+        // selectedElements do not update their position after initializing. Asking
+        // the react-flow community and will then update this.
+
+        // if(selectedElements && selectedElements.length > 0) {
+        //     nodesToUpdate.push(...selectedElements);
+        // } else {
+        nodesToUpdate.push(node);
+        // }
+
+        // if(selectedElements && selectedElements.length > 0) {
+        //     console.log("Drag Start");
+        //     for(const selectedElement of selectedElements) {
+        //         console.log(selectedElement.id + " [" + selectedElement.position.x + ", " + selectedElement.position.y + "]")
+        //     }
+        // }
+        
+        onPositionUpdate(nodesToUpdate);
     };
 
     const onConnect = (params) => {
@@ -219,13 +258,13 @@ const Nodes = () => {
                         </div>
                     </div>
                 )}
-                
                 <ReactFlow
                     elements={elements}
                     onElementsRemove={onElementsRemove}
                     onConnect={onConnect}
                     onNodeDragStart={onNodeDragStart}
                     onNodeDragStop={onNodeDragStop}
+                    onSelectionDragStop={onSelectionDragStop}
                     snapToGrid={true}
                     snapGrid={snapGrid}
                     nodeTypes={nodeTypes}

@@ -64,13 +64,10 @@ const App = () => {
                         A work in progress by <a href="http://abbieschenk.com">Abbie Schenk</a>
                     </div>
                     <div id="footer-links">
-                        <a href="/" target="_blank" rel="noopener">
-                            <Mail />
-                        </a>
-                        <a href="/" target="_blank" rel="noopener">
+                        <a href="https://twitter.com/Ludo_Systems" target="_blank" rel="noopener">
                             <Twitter />
                         </a>
-                        <a href="https://github.com/Ludobaum" target="_blank" rel="noopener">
+                        <a href="https://github.com/LudoSystems" target="_blank" rel="noopener">
                             <GitHub />
                         </a>
                     </div>

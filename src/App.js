@@ -5,7 +5,6 @@ import {
     Route
 } from "react-router-dom";
 import {
-    Mail,
     GitHub,
     Twitter,
 } from "react-feather";
@@ -64,10 +63,10 @@ const App = () => {
                         A work in progress by <a href="http://abbieschenk.com">Abbie Schenk</a>
                     </div>
                     <div id="footer-links">
-                        <a href="https://twitter.com/Ludo_Systems" target="_blank" rel="noopener">
+                        <a href="https://twitter.com/Ludo_Systems" target="_blank" rel="noreferrer noopener">
                             <Twitter />
                         </a>
-                        <a href="https://github.com/LudoSystems" target="_blank" rel="noopener">
+                        <a href="https://github.com/LudoSystems" target="_blank" rel="noreferrer noopener">
                             <GitHub />
                         </a>
                     </div>

@@ -31,7 +31,7 @@ a {
     }
 
     &:active {
-        color: colors.$active;
+        color: colors.$blue-active-outline;
     }
 }
 
@@ -207,7 +207,7 @@ nav {
     }
 
     &:active {
-        color: colors.$active;
+        color: colors.$blue-active-outline;
     }
 
 }
@@ -235,7 +235,7 @@ nav {
             } 
             
             #site-logo-systems {
-                fill: colors.$active;
+                fill: colors.$green-hover-outline;
             }                
         }
     }
@@ -243,11 +243,11 @@ nav {
     &:active {
         svg {
             #site-logo-ludo{
-                fill: colors.$active;
+                fill: colors.$blue-active-outline;
             }
 
             #site-logo-systems {
-                fill: colors.$active-darker;
+                fill: colors.$green-active-outline;
             }
         }
     }
@@ -468,14 +468,10 @@ nav {
         &:hover {
             svg {
                 .interior-background {
-                    fill: colors.$blue;
+                    fill: colors.$green-hover-fill;
                 }
                 .create-button {
-                    fill: darken(colors.$green, 10%);
-
-                    .interior-background {
-                        fill: lighten(colors.$green, 40%); 
-                    }
+                    fill: colors.$green-hover-outline;
                 }
             }
         }
@@ -483,15 +479,11 @@ nav {
         &:active {
             svg { 
                 .interior-background {
-                    fill: colors.$active;
+                    fill: colors.$green-active-fill;
                 }
     
                 .create-button {
-                    fill: darken(colors.$green, 20%);
-
-                    .interior-background {
-                        fill: lighten(colors.$green, 30%); 
-                    }
+                    fill: colors.$green-active-outline;
                 }
             }
         }
@@ -501,15 +493,23 @@ nav {
         &:hover {
             svg {
                 .interior-background {
-                    fill: colors.$blue;
+                    fill: colors.$blue-hover-fill;
                 }
 
                 .change-button {
-                    fill: darken(colors.$blue, 10%);
+                    fill: colors.$blue-hover-outline;
+                }
+            }
+        }
 
-                    .interior-background {
-                        fill: lighten(colors.$blue, 20%); 
-                    }
+        &:active {
+            svg {
+                .interior-background {
+                    fill: colors.$blue-active-fill;
+                }
+
+                .change-button {
+                    fill: colors.$blue-active-outline;
                 }
             }
         }
@@ -530,19 +530,18 @@ nav {
     fill: colors.$green;
 
     &:hover {
-        fill: darken(colors.$green, 10%);
+        fill: colors.$green-hover-outline;
 
         .interior-background {
-            fill: lighten(colors.$green, 40%); 
+            fill: colors.$green-hover-fill; 
         }
     }
 
     &:active {
-
-        fill: darken(colors.$green, 20%);
+        fill: colors.$green-active-outline;
 
         .interior-background {
-            fill: lighten(colors.$green, 30%); 
+            fill: colors.$green-active-fill;
         }
     }
 }
@@ -551,18 +550,18 @@ nav {
     fill: colors.$blue;
     
     &:hover {
-        fill: darken(colors.$blue, 10%);
+        fill: colors.$blue-hover-outline;
 
         .interior-background {
-            fill: lighten(colors.$blue, 20%); 
+            fill: colors.$blue-hover-fill;
         }
     }
 
     &:active {
-        fill: darken(colors.$blue, 20%);
+        fill: colors.$blue-active-outline;
 
         .interior-background {
-            fill: lighten(colors.$blue, 10%); 
+            fill: colors.$blue-active-fill;
         }
     }
 }
@@ -571,36 +570,35 @@ nav {
     fill: colors.$red;
 
     &:hover {
-        fill: darken(colors.$red, 10%);
+        fill: colors.$red-hover-outline;
 
         .interior-background {
-            fill: lighten(colors.$red, 40%); 
+            fill: colors.$red-hover-fill; 
         }
     }
 
     &:active {
-
-        fill: darken(colors.$red, 20%);
+        fill: colors.$red-active-outline;
 
         .interior-background {
-            fill: lighten(colors.$red, 30%); 
+            fill: colors.$red-active-fill; 
         }
     }
 }
 
 .disabled > svg {
     cursor: not-allowed;
-    fill: #BBB;
+    fill: colors.$disabled;
 
     &:hover {
-        fill: #BBB;
+        fill: colors.$disabled;
         
         .interior-background {
             fill: white;
         }
     }
     &:active {
-        fill: #BBB;
+        fill: colors.$disabled;
 
         .interior-background {
             fill: white;

@@ -6,13 +6,32 @@ $active: #40809C;
 $active-darker: darken($active, 10%);
 
 $blue: #77C7E9;
+$blue-hover-fill: lighten($blue, 20%); 
+$blue-hover-outline: darken($blue, 10%);
+$blue-active-fill: lighten($blue, 10%); 
+$blue-active-outline: darken($blue, 20%);
+
 $red: #D7334E;
+$red-hover-fill: lighten($red, 40%);
+$red-hover-outline: darken($red, 10%);
+$red-active-fill: lighten($red, 30%);
+$red-active-outline: darken($red, 20%);
+
 $light-red: #E88E9C;
+
 $yellow: #E8E25F;
 $brown: #9C9848;
+
 $green: #4F9C8A;
+$green-hover-fill: lighten($green, 40%);
+$green-hover-outline: darken($green, 5%);
+$green-active-fill: lighten($green, 30%); 
+$green-active-outline: darken($green, 10%);
+
 $green-lighter: lighten($green, 30%);
 $green-darker: darken($green, 10%);
+
+
 $subtle: #EEE;
 $disabled: #AAA;
 

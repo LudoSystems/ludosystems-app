@@ -4,7 +4,11 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-
+import {
+    Mail,
+    GitHub,
+    Twitter,
+} from "react-feather";
 import  { 
     ReactFlowProvider
 } from 'react-flow-renderer';
@@ -60,9 +64,15 @@ const App = () => {
                         A work in progress by <a href="http://abbieschenk.com">Abbie Schenk</a>
                     </div>
                     <div id="footer-links">
-                        <a href="/">Newsletter</a>
-                        <a href="/">Twitter</a>
-                        <a href="https://github.com/Ludobaum">GitHub</a>
+                        <a href="/" target="_blank" rel="noopener">
+                            <Mail />
+                        </a>
+                        <a href="/" target="_blank" rel="noopener">
+                            <Twitter />
+                        </a>
+                        <a href="https://github.com/Ludobaum" target="_blank" rel="noopener">
+                            <GitHub />
+                        </a>
                     </div>
                 </footer>
             </CurrentUserProvider>

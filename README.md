@@ -1,7 +1,6 @@
-# Ludobaum
+# Ludo.Systems
 
-A node editor for video games.
-
+Visual video game development.
 
 # Setup
 ## .env

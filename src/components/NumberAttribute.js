@@ -34,6 +34,12 @@ const NumberAttribute = memo((props) => {
         number: number,
     });
 
+    const onNumberEditorInitialize = (numberEditor) => {
+        if(numberEditor !== null) {
+            numberEditor.focus();
+        }
+    };
+
     const submitForm = (values) => {
         setEditing(false);
 
@@ -112,6 +118,7 @@ const NumberAttribute = memo((props) => {
                                         type="number"
                                         name="number"
                                         id="number"
+                                        innerRef={onNumberEditorInitialize}
                                         onChange={e => {
                                             e.preventDefault();
                                             const { value } = e.target;

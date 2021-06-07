@@ -32,10 +32,13 @@ const TextAttribute = memo((props) => {
         text: text,
     });
 
-    const onTextEditorChange = (textEditor) => {
+    const onTextEditorInitialize = (textEditor) => {
         if(textEditor != null) {
             textEditor.style.height = "";
             textEditor.style.height = textEditor.scrollHeight + "px";
+
+            textEditor.focus();
+            textEditor.setSelectionRange(textEditor.value.length, textEditor.value.length);
         }
     };
 
@@ -67,6 +70,8 @@ const TextAttribute = memo((props) => {
     
     const onEditClick = (e) => {
         setEditing(true);
+
+
     };
 
     const onCancelClick = (e) => {
@@ -114,7 +119,7 @@ const TextAttribute = memo((props) => {
                                         as="textarea"
                                         name="text"
                                         id="text"
-                                        innerRef={onTextEditorChange}
+                                        innerRef={onTextEditorInitialize}
                                         className={errors.text && touched.text ? "input-error" : null}
                                     />
                                     <ErrorMessage name="text" component="span" className="error" />

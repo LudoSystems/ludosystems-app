@@ -288,27 +288,36 @@ nav {
     }
 
     &.home {
+
         img {
             width: 100%;
         }
-        .content > p, ul, li {
-            @include widths.centered(widths.$content-default);
-            max-width: 95%;
 
-            font-size: 1.25rem;
+        .content {
+            min-width: 80%;
+            p, ul, li {
+                @include widths.centered(widths.$content-default);
+                max-width: 95%;
 
-            line-height: 1.5;
+                font-size: 1.25rem;
 
-            &.disclaimer {
-                padding: 18px;
-                text-align: center;
-                border: borders.$red;
+                line-height: 1.5;
 
-                .warning-text {
-                    color: colors.$red;
+                &.disclaimer {
+                    padding: 18px;
+                    text-align: center;
+                    border: borders.$red;
+
+                    .warning-text {
+                        color: colors.$red;
+                    }
                 }
             }
         }
+
+        // .video {
+        //     width: 75%;
+        // }
     }
 }
 

@@ -1,6 +1,6 @@
 # Ludo.Systems
 
-A React app that interacts with the Ludo.Systems API to 
+A React app that interacts with the Ludo.Systems API.
 
 A working experimental version can be found at [Ludo.Systems](https://ludo.systems).
 

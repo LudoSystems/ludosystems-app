@@ -12,6 +12,8 @@ import  {
     ReactFlowProvider
 } from 'react-flow-renderer';
 
+import ReactGA from "react-ga";
+
 import './styles/App.scss';
 
 import { CurrentUserProvider } from "./components/CurrentUserContext";
@@ -24,6 +26,8 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Nodes from "./components/Nodes";
 import NotFound from "./components/NotFound";
+
+ReactGA.initialize(process.env.REACT_APP_G_ANALYTICS);
 
 const App = () => {
     return (

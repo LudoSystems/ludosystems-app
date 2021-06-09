@@ -11,7 +11,7 @@ const Home = () => {
             <h1>Welcome{currentUser && (', ' + currentUser.username)}!</h1>
             <div className="content">
                 <p>Ludo.Systems is a set of visual game development tools designed for non-programmmers, exportable in common formats that are easy for programmers to add to almost any game engine.</p>
-                <iframe className="video" width="560" height="315" src="https://www.youtube.com/embed/8LtmX2naGvc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe className="video" width="560" height="315" src="https://www.youtube.com/embed/8LtmX2naGvc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 <h2 id="Pre-Release">Pre-Release</h2>
                 <p className="disclaimer"><strong><span className="warning-text">Warning:</span> Ludo.Systems is currently at the experimental stage.</strong></p>
                 <p>Data saved to Ludo.Systems should not yet be considered secure, nor safe from random deletion. Please keep copies of any text elsewhere in case of disaster. One specific note I’d make is to not work on this in more than one tab at the moment.</p>

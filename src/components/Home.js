@@ -13,9 +13,8 @@ const Home = () => {
                 <p>Ludo.Systems is a set of visual game development tools designed for non-programmmers, exportable in common formats that are easy for programmers to add to almost any game engine.</p>
                 <iframe className="video" width="560" height="315" src="https://www.youtube.com/embed/8LtmX2naGvc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 <h2 id="Pre-Release">Pre-Release</h2>
-                <p className="disclaimer"><strong><span className="warning-text">Warning:</span> Ludo.Systems is currently at the experimental stage.</strong></p>
-                <p>Data saved to Ludo.Systems should not yet be considered secure, nor safe from random deletion. Please keep copies of any text elsewhere in case of disaster. Ludo.Systems is also currently slow, as I'm hosting it for free on Heroku.</p>
-                <p>I am very thankful for any feedback on crashes, things breaking, or desired features / changes via <a href="https://github.com/ludosystems" target="_blank" rel="noreferrer noopener">GitHub</a> or <a href="https://twitter.com/Ludo_Systems" target="_blank" rel="noreferrer noopener">Twitter</a>.</p>
+                <p className="disclaimer"><strong><span className="warning-text">Note:</span> Ludo.Systems was open in an experimental state but is closed for now.</strong></p>
+                <p>LudoSystems was deployed on Heroku but is currently no longer active. If this project interests you, please <a href="https://abbieschenk.com">contact me</a>.</p>
                 <h2 id="Nodes">Nodes</h2>
                 <p>Nodes is the only tool currently available. You can use it to set up parts of your game that make more sense to plan with a graph than in a text editor, such as game conversations or quest systems. </p>
                 <h3>An example of a branching conversation</h3>
